@@ -19,7 +19,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import pabeles.concurrency.ConcurrencyOps.Reset;
 
-import org.frcteam
+import org.frcteam2910.common.drivers.Gyroscope;
+import org.frcteam2910.common.drivers.SwerveModule;
+import org.frcteam2910.common.math.Vector2;
+import org.frcteam2910.common.robot.drivers.Mk2SwerveModuleBuilder;
+import org.frcteam2910.common.robot.drivers.NavX;
 
 /** Add your docs here. */
 public class DriveCommand extends SubsystemBase {
