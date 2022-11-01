@@ -25,6 +25,8 @@ import org.frcteam2910.common.math.Vector2;
 import org.frcteam2910.common.robot.drivers.Mk2SwerveModuleBuilder;
 import org.frcteam2910.common.robot.drivers.NavX;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 /** Add your docs here. */
 public class DriveCommand extends SubsystemBase {
 private static final double TRACKWIDTH = 19.5;
@@ -33,7 +35,7 @@ private static final double FRONT_LEFT_ANGLE_OFFSET = -Math.toRadians(0);
 private static final double FRONT_RIGHT_ANGLE_OFFSET = -Math.toRadians(0);
 private static final double BACK_LEFT_ANGLE_OFFSET = -Math.toRadians(0);
 private static final double BACK_RIGHT_ANGLE_OFFSET = -Math.toRadians(0);
-private static DrivetrainSubsystem instace;
+private static DriveCommand instace;
 
 private final SwerveModuleState frontleftModule = new Mk2SwerveModuleBuilder(
   new TalonFX( TRACKWIDTH / 2.0 , WHEELBASE / 2.0))
@@ -67,23 +69,23 @@ private final SwerveModuleState frontleftModule = new Mk2SwerveModuleBuilder(
   new Translation2d(TRACKWIDTH / 2.0 , WHEELBASE / 2.0),
   new Translation2d(TRACKWIDTH / 2.0 , -WHEELBASE / 2.0),
   new Translation2d(-TRACKWIDTH / 2.0 , WHEELBASE / 2.0),
-  new Translation2d(-TRACKWIDTH / 2.0 , -WHEELBASE / 2.0),
+  new Translation2d(-TRACKWIDTH / 2.0 , -WHEELBASE / 2.0)
  );
   private final Gyroscope gyroscope = new NavX(SPI.Port.kMXP);
 
-  public DrivetrainSubsystem(){
+  public DriveCommand() {
     gyroscope.calibrate();
-    gyroscope.setInverted(true); //migh not need to invert gyro
+    gyroscope.setInverted(true); // You might not need to invert the gyro
 
-    frontleftModule.setName("front left");
-    frontrightModule.setName("front right");
-    backleftModule.setName("back left");
-    backrightModule.setname("back right");
-  }
+    frontLeftModule.setName("Front Left");
+    frontRightModule.setName("Front Right");
+    backLeftModule.setName("Back Left");
+    backRightModule.setName("Back Right");
+}
 
-  public static DrivetrainSubsystem getInstance() {
+  public static DriveCommand getInstance() {
     if (instance == null) {
-      instance = new DrivetrainSubsystem();
+      instance = new DriveCommand();
     }
     return instance;
   }
