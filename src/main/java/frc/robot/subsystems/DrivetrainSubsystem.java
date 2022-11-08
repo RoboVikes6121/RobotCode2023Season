@@ -4,136 +4,193 @@
 
 package frc.robot.subsystems;
 
-import javax.swing.event.TableModelEvent;
-
+import com.ctre.phoenix.sensors.PigeonIMU;
+import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
+import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
+import com.swervedrivespecialties.swervelib.SwerveModule;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import pabeles.concurrency.ConcurrencyOps.Reset;
 
-// import org.frcteam2910.common.drivers.Gyroscope;
-// import org.frcteam2910.common.drivers.SwerveModule;
-// import org.frcteam2910.common.math.Vector2;
-// import org.frcteam2910.common.robot.drivers.Mk2SwerveModuleBuilder;
-// import org.frcteam2910.common.robot.drivers.NavX;
+import static frc.robot.Constants.*;
 
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
-/** Add your docs here. */
 public class DrivetrainSubsystem extends SubsystemBase {
-private static final double TRACKWIDTH = 19.5;
-private static final double WHEELBASE = 23.5;
-private static final double FRONT_LEFT_ANGLE_OFFSET = -Math.toRadians(0);
-private static final double FRONT_RIGHT_ANGLE_OFFSET = -Math.toRadians(0);
-private static final double BACK_LEFT_ANGLE_OFFSET = -Math.toRadians(0);
-private static final double BACK_RIGHT_ANGLE_OFFSET = -Math.toRadians(0);
-private static DrivetrainSubsystem instace;
+  /**
+   * The maximum voltage that will be delivered to the drive motors.
+   * <p>
+   * This can be reduced to cap the robot's maximum speed. Typically, this is useful during initial testing of the robot.
+   */
+  public static final double MAX_VOLTAGE = 12.0;
+  // FIXME Measure the drivetrain's maximum velocity or calculate the theoretical.
+  //  The formula for calculating the theoretical maximum velocity is:
+  //   <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> * pi
+  //  By default this value is setup for a Mk3 standard module using Falcon500s to drive.
+  //  An example of this constant for a Mk4 L2 module with NEOs to drive is:
+  //   5880.0 / 60.0 / SdsModuleConfigurations.MK4_L2.getDriveReduction() * SdsModuleConfigurations.MK4_L2.getWheelDiameter() * Math.PI
+  /**
+   * The maximum velocity of the robot in meters per second.
+   * <p>
+   * This is a measure of how fast the robot should be able to drive in a straight line.
+   */
+  public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
+          SdsModuleConfigurations.MK3_STANDARD.getDriveReduction() *
+          SdsModuleConfigurations.MK3_STANDARD.getWheelDiameter() * Math.PI;
+  /**
+   * The maximum angular velocity of the robot in radians per second.
+   * <p>
+   * This is a measure of how fast the robot can rotate in place.
+   */
+  // Here we calculate the theoretical maximum angular velocity. You can also replace this with a measured amount.
+  public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND = MAX_VELOCITY_METERS_PER_SECOND /
+          Math.hypot(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0);
 
-// private final SwerveModuleState frontleftModule = new Mk2SwerveModuleBuilder(
-//   new TalonFX( TRACKWIDTH / 2.0 , WHEELBASE / 2.0))
-//   .angleEncoder(new AnalogInput(Constants.DRIVETRAIN_FRONT_LEFT_ANGLE_ENCODER), FRONT_LEFT_ANGLE_OFFSET)
-//   .angleMotor(new TalonFX(Constants.DRIVETRAIN_FRONT_LEFT_ANGLE_ENCODER), Mk2SwerveModuleBuilder.MotorType.TalonFX)
-//   .driveMotor(new TalonFX(Constants.DRIVETRAIN_FRONT_LEFT_ANGLE_ENCODER), Mk2SwerveModuleBuilder.MotorType.TalonFX)
-//   .build();
+  private final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
+          // Front left
+          new Translation2d(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0),
+          // Front right
+          new Translation2d(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, -DRIVETRAIN_WHEELBASE_METERS / 2.0),
+          // Back left
+          new Translation2d(-DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0),
+          // Back right
+          new Translation2d(-DRIVETRAIN_TRACKWIDTH_METERS / 2.0, -DRIVETRAIN_WHEELBASE_METERS / 2.0)
+  );
 
-//   private final SwerveModule frontrightModule = new Mk2SwerveModuleBuilder(
-//   new Vector2( TRACKWIDTH / 2.0 , -WHEELBASE / 2.0))
-//   .angleEncoder(new AnalogInput(Constants.DRIVETRAIN_FRONT_RIGHT_ANGLE_ENCODER), FRONT_LEFT_ANGLE_OFFSET)
-//   .angleMotor(new TalonFX(Constants.DRIVETRAIN_FRONT_RIGHT_ANGLE_ENCODER), Mk2SwerveModuleBuilder.MotorType.TalonFX)
-//   .driveMotor(new TalonFX(Constants.DRIVETRAIN_FRONT_RIGHT_ANGLE_ENCODER), Mk2SwerveModuleBuilder.MotorType.TalonFX)
-//   .build();
+  // By default we use a Pigeon for our gyroscope. But if you use another gyroscope, like a NavX, you can change this.
+  // The important thing about how you configure your gyroscope is that rotating the robot counter-clockwise should
+  // cause the angle reading to increase until it wraps back over to zero.
+  // FIXME Remove if you are using a Pigeon
+  private final PigeonIMU m_pigeon = new PigeonIMU(DRIVETRAIN_PIGEON_ID);
+  // FIXME Uncomment if you are using a NavX
+//  private final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
 
-//   private final SwerveModule backleftModule = new Mk2SwerveModuleBuilder(
-//     new Vector2( -TRACKWIDTH / 2.0 , WHEELBASE / 2.0))
-//     .angleEncoder(new AnalogInput(Constants.DRIVETRAIN_BACK_LEFT_ANGLE_ENCODER), FRONT_LEFT_ANGLE_OFFSET)
-//     .angleMotor(new TalonFX(Constants.DRIVETRAIN_BACK_LEFT_ANGLE_ENCODER), Mk2SwerveModuleBuilder.MotorType.TalonFX)
-//     .driveMotor(new TalonFX(Constants.DRIVETRAIN_BACK_LEFT_ANGLE_ENCODER), Mk2SwerveModuleBuilder.MotorType.TalonFX)
-//     .build();
+  // These are our modules. We initialize them in the constructor.
+  private final SwerveModule m_frontLeftModule;
+  private final SwerveModule m_frontRightModule;
+  private final SwerveModule m_backLeftModule;
+  private final SwerveModule m_backRightModule;
 
-//     private final SwerveModule backrightModule = new Mk2SwerveModuleBuilder(
-//   new Vector2( -TRACKWIDTH / 2.0 , -WHEELBASE / 2.0))
-//   .angleEncoder(new AnalogInput(Constants.DRIVETRAIN_BACK_RIGHT_ANGLE_ENCODER), FRONT_LEFT_ANGLE_OFFSET)
-//   .angleMotor(new TalonFX(Constants.DRIVETRAIN_BACK_RIGHT_ANGLE_ENCODER), Mk2SwerveModuleBuilder.MotorType.TalonFX)
-//   .driveMotor(new TalonFX(Constants.DRIVETRAIN_BACK_RIGHT_ANGLE_ENCODER), Mk2SwerveModuleBuilder.MotorType.TalonFX)
-//   .build();
+  private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
-//   private final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
-//   new Translation2d(TRACKWIDTH / 2.0 , WHEELBASE / 2.0),
-//   new Translation2d(TRACKWIDTH / 2.0 , -WHEELBASE / 2.0),
-//   new Translation2d(-TRACKWIDTH / 2.0 , WHEELBASE / 2.0),
-//   new Translation2d(-TRACKWIDTH / 2.0 , -WHEELBASE / 2.0)
-//  );
-//   private final Gyroscope gyroscope = new NavX(SPI.Port.kMXP);
+  public DrivetrainSubsystem() {
+    ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
 
-//   public DrivetrainSubsystem() {
-//     gyroscope.calibrate();
-//     gyroscope.setInverted(true); // You might not need to invert the gyro
+    // There are 4 methods you can call to create your swerve modules.
+    // The method you use depends on what motors you are using.
+    //
+    // Mk3SwerveModuleHelper.createFalcon500(...)
+    //   Your module has two Falcon 500s on it. One for steering and one for driving.
+    //
+    // Mk3SwerveModuleHelper.createNeo(...)
+    //   Your module has two NEOs on it. One for steering and one for driving.
+    //
+    // Mk3SwerveModuleHelper.createFalcon500Neo(...)
+    //   Your module has a Falcon 500 and a NEO on it. The Falcon 500 is for driving and the NEO is for steering.
+    //
+    // Mk3SwerveModuleHelper.createNeoFalcon500(...)
+    //   Your module has a NEO and a Falcon 500 on it. The NEO is for driving and the Falcon 500 is for steering.
+    //
+    // Similar helpers also exist for Mk4 modules using the Mk4SwerveModuleHelper class.
 
-//     frontLeftModule.setName("Front Left");
-//     frontRightModule.setName("Front Right");
-//     backLeftModule.setName("Back Left");
-//     backRightModule.setName("Back Right");
-// }
+    // By default we will use Falcon 500s in standard configuration. But if you use a different configuration or motors
+    // you MUST change it. If you do not, your code will crash on startup.
+    // FIXME Setup motor configuration
+    m_frontLeftModule = Mk3SwerveModuleHelper.createFalcon500(
+            // This parameter is optional, but will allow you to see the current state of the module on the dashboard.
+            tab.getLayout("Front Left Module", BuiltInLayouts.kList)
+                    .withSize(2, 4)
+                    .withPosition(0, 0),
+            // This can either be STANDARD or FAST depending on your gear configuration
+            Mk3SwerveModuleHelper.GearRatio.STANDARD,
+            // This is the ID of the drive motor
+            FRONT_LEFT_MODULE_DRIVE_MOTOR,
+            // This is the ID of the steer motor
+            FRONT_LEFT_MODULE_STEER_MOTOR,
+            // This is the ID of the steer encoder
+            FRONT_LEFT_MODULE_STEER_ENCODER,
+            // This is how much the steer encoder is offset from true zero (In our case, zero is facing straight forward)
+            FRONT_LEFT_MODULE_STEER_OFFSET
+    );
 
-//   public static DrivetrainSubsystem getInstance() {
-//     if (instance == null) {
-//       instance = new DrivetrainSubsystem();
-//     }
-//     return instance;
-//   }
-//   public void periodic() {
-//     frontleftModule.updateSensors();
-//     frontrightModule.updateSensors();
-//     backleftModule.updateSensors();
-//     backrightModule.updateSensors();
+    // We will do the same for the other modules
+    m_frontRightModule = Mk3SwerveModuleHelper.createFalcon500(
+            tab.getLayout("Front Right Module", BuiltInLayouts.kList)
+                    .withSize(2, 4)
+                    .withPosition(2, 0),
+            Mk3SwerveModuleHelper.GearRatio.STANDARD,
+            FRONT_RIGHT_MODULE_DRIVE_MOTOR,
+            FRONT_RIGHT_MODULE_STEER_MOTOR,
+            FRONT_RIGHT_MODULE_STEER_ENCODER,
+            FRONT_RIGHT_MODULE_STEER_OFFSET
+    );
 
-//     SmartDashboard.putNumber("Front Left Module Angle", Math.toDegrees(frontleftModule.getCurrentAngle()));
-//     SmartDashboard.putNumber("Front Right Module Angle", Math.toDegrees(frontrightModule.getCurrentAngle()));
-//     SmartDashboard.putNumber("Back Left Module Angle", Math.toDegrees(backleftModule.getCurrentAngle()));
-//     SmartDashboard.putNumber("Back Right Module Angle", Math.toDegrees(backrightModule.getCurrentAngle()));
+    m_backLeftModule = Mk3SwerveModuleHelper.createFalcon500(
+            tab.getLayout("Back Left Module", BuiltInLayouts.kList)
+                    .withSize(2, 4)
+                    .withPosition(4, 0),
+            Mk3SwerveModuleHelper.GearRatio.STANDARD,
+            BACK_LEFT_MODULE_DRIVE_MOTOR,
+            BACK_LEFT_MODULE_STEER_MOTOR,
+            BACK_LEFT_MODULE_STEER_ENCODER,
+            BACK_LEFT_MODULE_STEER_OFFSET
+    );
 
-//     SmartDashboard.putNumber("Gyroscope Angle", gyroscope.getAngle().toDegrees());
+    m_backRightModule = Mk3SwerveModuleHelper.createFalcon500(
+            tab.getLayout("Back Right Module", BuiltInLayouts.kList)
+                    .withSize(2, 4)
+                    .withPosition(6, 0),
+            Mk3SwerveModuleHelper.GearRatio.STANDARD,
+            BACK_RIGHT_MODULE_DRIVE_MOTOR,
+            BACK_RIGHT_MODULE_STEER_MOTOR,
+            BACK_RIGHT_MODULE_STEER_ENCODER,
+            BACK_RIGHT_MODULE_STEER_OFFSET
+    );
+  }
 
-//     frontleftModule.updateState(TimedRobot.kDefaultPeriod);
-//     frontrightModule.updateState(TimedRobot.kDefaultPeriod);
-//     backleftModule.updateState(TimedRobot.kDefaultPeriod);
-//     backrightModule.updateState(TimedRobot.kDefaultPeriod);
-//   }
+  /**
+   * Sets the gyroscope angle to zero. This can be used to set the direction the robot is currently facing to the
+   * 'forwards' direction.
+   */
+  public void zeroGyroscope() {
+    // FIXME Remove if you are using a Pigeon
+    m_pigeon.setFusedHeading(0.0);
 
-//   public void drive(Translation2d translation, double rotation, boolean fieldOriented) {
-//     rotation *= 2.0 / Math.hypot(WHEELBASE, TRACKWIDTH);
-//     ChassisSpeeds speeds;
-//     if (fieldOriented){
-//       speeds = ChassisSpeeds.fromFieldRelativeSpeeds(translation.getX(), translation.getY(), rotation, Rotation2d.fromDegrees(gyroscope.getAngle().toDegrees()));
-//     } else {
-//       speeds = new ChassisSpeeds(translation.getX(), translation.getY(), rotation);
-//     }
+    // FIXME Uncomment if you are using a NavX
+//    m_navx.zeroYaw();
+  }
 
-//     SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
-//     frontleftModule.setTargetVelocity(states[0].speedMetersPerSecond, states[0].angle.getRadians());
-//     frontrightModule.setTargetVelocity(states[1].speedMetersPerSecond, states[1].angle.getRadians());
-//     backleftModule.setTargetVelocity(states[2].speedMetersPerSecond, states[2].angle.getRadians());
-//     backrightModule.setTargetVelocity(states[3].speedMetersPerSecond, states[3].angle.getRadians());
-//   }
+  public Rotation2d getGyroscopeRotation() {
+    // FIXME Remove if you are using a Pigeon
+    return Rotation2d.fromDegrees(m_pigeon.getFusedHeading());
 
-//   public void resetGyroscope() {
-//     gyroscope.setAdjustmentAngle(gyroscope.getUnadjustedAngle());
-//   }
+    // FIXME Uncomment if you are using a NavX
+//    if (m_navx.isMagnetometerCalibrated()) {
+//      // We will only get valid fused headings if the magnetometer is calibrated
+//      return Rotation2d.fromDegrees(m_navx.getFusedHeading());
+//    }
+//
+//    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
+//    return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
+  }
 
-//   // Put methods for controlling this subsystem
-//   // here. Call these from Commands.
+  public void drive(ChassisSpeeds chassisSpeeds) {
+    m_chassisSpeeds = chassisSpeeds;
+  }
 
-//   @Override
-//   public void initDefaultCommand() {
-//     // Set the default command for a subsystem here.
-//     // setDefaultCommand(new MySpecialCommand());
-//   }
+  @Override
+  public void periodic() {
+    SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
+    SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
+
+    m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[0].angle.getRadians());
+    m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[1].angle.getRadians());
+    m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
+    m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
+  }
+
 }
