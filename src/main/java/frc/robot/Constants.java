@@ -27,6 +27,8 @@ public final class Constants {
 
     //public static final int DRIVETRAIN_PIGEON_ID = 0; // FIXME Set Pigeon ID
 
+    public static final double MAX_SPEED_MOD = .5; //set a moddifer for max speed.
+
     public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 7; // FIXME Set front left module drive motor ID
     public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 6; // FIXME Set front left module steer motor ID
     public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 13; // FIXME Set front left steer encoder ID
