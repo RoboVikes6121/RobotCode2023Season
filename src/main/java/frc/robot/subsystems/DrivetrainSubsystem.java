@@ -68,8 +68,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // The important thing about how you configure your gyroscope is that rotating the robot counter-clockwise should
   // cause the angle reading to increase until it wraps back over to zero.
   // FIXME Remove if you are using a Pigeon
-  //private final PigeonIMU m_pigeon = new PigeonIMU(DRIVETRAIN_PIGEON_ID);
-  // FIXME Uncomment if you are using a NavX
+  //private final PigeonIMU m_pigeon = new PigeonIMU(22);
+   //FIXME Uncomment if you are using a NavX
   private final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
 
   // These are our modules. We initialize them in the constructor.
@@ -103,7 +103,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // By default we will use Falcon 500s in standard configuration. But if you use a different configuration or motors
     // you MUST change it. If you do not, your code will crash on startup.
     // FIXME Setup motor configuration
-    m_frontLeftModule = Mk3SwerveModuleHelper.createFalcon500(
+    /*m_frontLeftModule = Mk3SwerveModuleHelper.createFalcon500(
             // This parameter is optional, but will allow you to see the current state of the module on the dashboard.
             tab.getLayout("Front Left Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
@@ -119,9 +119,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
             // This is how much the steer encoder is offset from true zero (In our case, zero is facing straight forward)
             FRONT_LEFT_MODULE_STEER_OFFSET
     );
+    */
+    m_frontLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
+        tab.getLayout("Front Left Module", BuiltInLayouts.kList)
+                .withSize(2, 4)
+                .withPosition(0, 0),
+        Mk4iSwerveModuleHelper.GearRatio.L1, 
+        FRONT_LEFT_MODULE_DRIVE_MOTOR, 
+        FRONT_LEFT_MODULE_STEER_MOTOR, 
+        FRONT_LEFT_MODULE_STEER_ENCODER,
+        FRONT_LEFT_MODULE_STEER_OFFSET);
+    
 
     // We will do the same for the other modules
-    m_frontRightModule = Mk3SwerveModuleHelper.createFalcon500(
+    /*m_frontRightModule = Mk3SwerveModuleHelper.createFalcon500(
             tab.getLayout("Front Right Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
                     .withPosition(2, 0),
@@ -131,8 +142,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
             FRONT_RIGHT_MODULE_STEER_ENCODER,
             FRONT_RIGHT_MODULE_STEER_OFFSET
     );
+    */
+    m_frontRightModule = Mk4iSwerveModuleHelper.createFalcon500(
+        tab.getLayout("Front Right Module", BuiltInLayouts.kList)
+                .withSize(2, 4)
+                .withPosition(0, 0),
+        Mk4iSwerveModuleHelper.GearRatio.L1, 
+        FRONT_RIGHT_MODULE_DRIVE_MOTOR, 
+        FRONT_RIGHT_MODULE_STEER_MOTOR, 
+        FRONT_RIGHT_MODULE_STEER_ENCODER,
+        FRONT_RIGHT_MODULE_STEER_OFFSET);
 
-    m_backLeftModule = Mk3SwerveModuleHelper.createFalcon500(
+  /*  m_backLeftModule = Mk3SwerveModuleHelper.createFalcon500(
             tab.getLayout("Back Left Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
                     .withPosition(4, 0),
@@ -142,8 +163,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
             BACK_LEFT_MODULE_STEER_ENCODER,
             BACK_LEFT_MODULE_STEER_OFFSET
     );
-
-    m_backRightModule = Mk3SwerveModuleHelper.createFalcon500(
+   */ m_backLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
+        tab.getLayout("Back Left Module", BuiltInLayouts.kList)
+                .withSize(2, 4)
+                .withPosition(0, 0),
+        Mk4iSwerveModuleHelper.GearRatio.L1, 
+        BACK_LEFT_MODULE_DRIVE_MOTOR, 
+        BACK_LEFT_MODULE_STEER_MOTOR, 
+        BACK_LEFT_MODULE_STEER_ENCODER,
+        BACK_LEFT_MODULE_STEER_OFFSET);
+   /* m_backRightModule = Mk3SwerveModuleHelper.createFalcon500(
             tab.getLayout("Back Right Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
                     .withPosition(6, 0),
@@ -153,6 +182,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
             BACK_RIGHT_MODULE_STEER_ENCODER,
             BACK_RIGHT_MODULE_STEER_OFFSET
     );
+   */ m_backRightModule = Mk4iSwerveModuleHelper.createFalcon500(
+        tab.getLayout("Back Right Module", BuiltInLayouts.kList)
+                .withSize(2, 4)
+                .withPosition(0, 0),
+        Mk4iSwerveModuleHelper.GearRatio.L1, 
+        BACK_RIGHT_MODULE_DRIVE_MOTOR, 
+        BACK_RIGHT_MODULE_STEER_MOTOR, 
+        BACK_RIGHT_MODULE_STEER_ENCODER,
+        BACK_RIGHT_MODULE_STEER_OFFSET);
   }
 
   /**
@@ -165,6 +203,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     // FIXME Uncomment if you are using a NavX
     m_navx.zeroYaw();
+  System.out.println("0 gyro");
   }
 
   public Rotation2d getGyroscopeRotation() {
@@ -178,8 +217,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 //
 //    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-    return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
-  }
+//System.out.print(360.0-m_navx.getYaw()+" ::: ");
+double temp = Math.round((360.0 - m_navx.getYaw())*1000000);
+//System.out.println(temp/1000000);
+    return Rotation2d.fromDegrees(temp/1000000);
+  }     
 
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
