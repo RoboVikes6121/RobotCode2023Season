@@ -4,12 +4,13 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -24,6 +25,9 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 public class Robot extends TimedRobot {
   UsbCamera camera1;
   UsbCamera camera2;
+  UsbCamera camera3;
+  UsbCamera camera4; 
+  Timer m_timer = new Timer();
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -39,9 +43,11 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     camera1 = CameraServer.startAutomaticCapture(0);
     camera2 = CameraServer.startAutomaticCapture(1);
+    camera3 = CameraServer.startAutomaticCapture(2);
+    camera4 = CameraServer.startAutomaticCapture(3); 
   }
 
-  /**
+  /*
    * This function is called every robot packet, no matter the mode. Use this for items like
    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
    *
@@ -119,5 +125,17 @@ public void dAuton(){
 // determine how far we want to travel
 // compare our gyro distance reading and determine if we still need to move forward
 // keep track of other coordinates, x, y, z
+if (m_timer.get() < 0){
+  driveforward(0);
+}
+else if(m_timer.get() > 0 & m_timer.get() < 1.5){
+  driveforward(.2);
+}
+}
 
+public static void driveforward(double power) {
+}
+
+public static int m_timer() {
+  return 0;
 }}
