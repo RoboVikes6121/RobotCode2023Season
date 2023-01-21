@@ -8,7 +8,7 @@ import frc.robot.Robot;
 
 /** Add your docs here. */
 public class PracticeAuton {{
-if(Robot.m_timer() > 0){
+if(Robot.m_timer() < 0){
   Robot.driveforward(0);
 }
     else if(Robot.m_timer() > 0 & Robot.m_timer() < 1.5 ){
