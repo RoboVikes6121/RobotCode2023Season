@@ -16,9 +16,10 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.subsystems.Swerve;
 import frc.robot.commands.DefaultDriveCommand;
+import frc.robot.commands.TeleopSwerve;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.StabilizerController;
 
@@ -32,6 +33,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final StabilizerController m_StabilizerController = new StabilizerController();
+  private final Swerve m_Swerve = new Swerve();
 
   private final XboxController m_controller = new XboxController(0);
     // private final Joystick m_joystick = new Joystick(0);
@@ -46,12 +48,7 @@ public class RobotContainer {
     // Left stick Y axis -> forward and backwards movement
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
-    m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
-      m_drivetrainSubsystem,
-      () -> -modifyAxis(m_controller.getLeftX() * .2),
-      () -> -modifyAxis(m_controller.getLeftY() * .2),
-      () -> -modifyAxis(m_controller.getRightX() * (.2 * Math.PI))
-    ));
+    m_Swerve.setDefaultCommand(new TeleopSwerve(m_Swerve, m_controller, Constants.Swerve.isFieldRelative, Constants.Swerve.isOpenLoop));
 
     while(m_controller.getBButton()){
       m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
@@ -75,9 +72,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
-    new Button(m_controller::getBackButton)
-            // No requirements because we don't need to interrupt anything
-            .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
+  //   new Button(m_controller::getBackButton)
+  //           // No requirements because we don't need to interrupt anything
+  //           .whenPressed(m_Swerve::reset);
 
     
   }

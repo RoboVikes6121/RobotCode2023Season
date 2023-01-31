@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import frc.robot.commands.TeleopSwerve;
 import frc.robot.modules.SwerveModuleConstants;
 
 /**
@@ -20,6 +21,8 @@ import frc.robot.modules.SwerveModuleConstants;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    public static final double stickDeadband = .1;
     /**
      * The left-to-right distance between the drivetrain wheels
      *
@@ -175,6 +178,9 @@ public final class Constants {
             public static final double angleOffset = 248.994;
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+        }
+
+        public void setDefaultCommand(TeleopSwerve teleopSwerve) {
         }
 
     }
