@@ -15,24 +15,24 @@ public class RunAuton {
 
     
     
-    public SequentialCommandGroup followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFirstPath){
-            return new SequentialCommandGroup(
-                new InstantCommand (() -> {
-                    if(isFirstPath){
-                        this.resetOdometry(traj.getInitialHolonomicPose());
-                    }
-                }),
-                new PPSwerveControllerCommand(
-                    traj,
-                    this :: getPose, 
-                    this.kinematics,
-                    new PIDController(0, 0, 0),
-                    new PIDController(0, 0, 0),
-                    new PIDController(0, 0, 0),
-                    this :: setModuleStates,
-                    true,
-                    this
-                )
-            );
-    }
+    // public SequentialCommandGroup followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFirstPath){
+    //         return new SequentialCommandGroup(
+    //             new InstantCommand (() -> {
+    //                 if(isFirstPath){
+    //                     this.resetOdometry(traj.getInitialHolonomicPose());
+    //                 }
+    //             }),
+    //             new PPSwerveControllerCommand(
+    //                 traj,
+    //                 this :: getPose, 
+    //                 this.kinematics,
+    //                 new PIDController(0, 0, 0),
+    //                 new PIDController(0, 0, 0),
+    //                 new PIDController(0, 0, 0),
+    //                 this :: setModuleStates,
+    //                 true,
+    //                 this
+    //             )
+    //         );
+    // }
 }
