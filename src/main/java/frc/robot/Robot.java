@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.modules.CTREConfigs;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 /**
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
   Timer m_timer = new Timer();
   private Command m_autonomousCommand;
 
+  public static CTREConfigs ctreConfigs;
   private RobotContainer m_robotContainer;
 
   /**
@@ -45,6 +47,8 @@ public class Robot extends TimedRobot {
     camera2 = CameraServer.startAutomaticCapture(1);
     camera3 = CameraServer.startAutomaticCapture(2);
     camera4 = CameraServer.startAutomaticCapture(3); 
+
+    ctreConfigs = new CTREConfigs();
   }
 
   /*

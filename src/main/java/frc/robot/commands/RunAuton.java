@@ -4,23 +4,32 @@
 
 package frc.robot.commands;
 
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 /** Add your docs here. */
 public class RunAuton {
-    public command followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFirstPath){
+
+    
+    
+    public SequentialCommandGroup followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFirstPath){
             return new SequentialCommandGroup(
                 new InstantCommand (() -> {
                     if(isFirstPath){
-                        this.resetOdometry(traj.getInitialHolonomicRose());
+                        this.resetOdometry(traj.getInitialHolonomicPose());
                     }
                 }),
                 new PPSwerveControllerCommand(
                     traj,
-                    this : : getPose, 
+                    this :: getPose, 
                     this.kinematics,
                     new PIDController(0, 0, 0),
                     new PIDController(0, 0, 0),
                     new PIDController(0, 0, 0),
-                    this : : setModuleStates,
+                    this :: setModuleStates,
                     true,
                     this
                 )
