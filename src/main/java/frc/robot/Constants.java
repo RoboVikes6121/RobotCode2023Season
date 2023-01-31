@@ -28,37 +28,37 @@ public final class Constants {
      *
      * Should be measured from center to center.
      */
-    public static final double DRIVETRAIN_TRACKWIDTH_METERS = .6; // FIXME Measure and set trackwidth
-    /**
-     * The front-to-back distance between the drivetrain wheels.
-     *
-     * Should be measured from center to center.
-     */
-    public static final double DRIVETRAIN_WHEELBASE_METERS = .6; // FIXME Measure and set wheelbase
+    // public static final double DRIVETRAIN_TRACKWIDTH_METERS = .6; // FIXME Measure and set trackwidth
+    // /**
+    //  * The front-to-back distance between the drivetrain wheels.
+    //  *
+    //  * Should be measured from center to center.
+    //  */
+    // public static final double DRIVETRAIN_WHEELBASE_METERS = .6; // FIXME Measure and set wheelbase
     
-    //public static final int DRIVETRAIN_PIGEON_ID = 22; //  FIXME Set Pigeon ID
-    public static final double MAX_SPEED_MOD = .26;
+    // //public static final int DRIVETRAIN_PIGEON_ID = 22; //  FIXME Set Pigeon ID
+    // public static final double MAX_SPEED_MOD = .26;
     
 
-    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 7; // FIXME Set front left module drive motor ID
-    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 6; // FIXME Set front left module steer motor ID
-    public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 13; // FIXME Set front left steer encoder ID
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(307.8); // FIXME Measure and set front left steer offset
+    // public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 7; // FIXME Set front left module drive motor ID
+    // public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 6; // FIXME Set front left module steer motor ID
+    // public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 13; // FIXME Set front left steer encoder ID
+    // public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(307.8); // FIXME Measure and set front left steer offset
 
-    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 4; // FIXME Set front right drive motor ID
-    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 2; // FIXME Set front right steer motor ID
-    public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 12; // FIXME Set front right steer encoder ID
-    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(152.6); // FIXME Measure and set front right steer offset
+    // public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 4; // FIXME Set front right drive motor ID
+    // public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 2; // FIXME Set front right steer motor ID
+    // public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 12; // FIXME Set front right steer encoder ID
+    // public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(152.6); // FIXME Measure and set front right steer offset
 
-    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 0; // FIXME Set back left drive motor ID
-    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 3; // FIXME Set back left steer motor ID
-    public static final int BACK_LEFT_MODULE_STEER_ENCODER = 11; // FIXME Set back left steer encoder ID
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(242.75); // FIXME Measure and set back left steer offset
+    // public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 0; // FIXME Set back left drive motor ID
+    // public static final int BACK_LEFT_MODULE_STEER_MOTOR = 3; // FIXME Set back left steer motor ID
+    // public static final int BACK_LEFT_MODULE_STEER_ENCODER = 11; // FIXME Set back left steer encoder ID
+    // public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(242.75); // FIXME Measure and set back left steer offset
 
-    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 1; // FIXME Set back right drive motor ID
-    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 5; // FIXME Set back right steer motor ID
-    public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 10; // FIXME Set back right steer encoder ID
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(58.3); // FIXME Measure and set back right steer offset
+    // public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 1; // FIXME Set back right drive motor ID
+    // public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 5; // FIXME Set back right steer motor ID
+    // public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 10; // FIXME Set back right steer encoder ID
+    // public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(58.3); // FIXME Measure and set back right steer offset
 
     public static final class Swerve{
         public static final edu.wpi.first.wpilibj.SPI.Port navXID =
@@ -66,7 +66,7 @@ public final class Constants {
         public static final boolean invertGyro = true; // Always ensure Gyro is CCW+ CW-
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(23);
+        public static final double trackWidth = Units.inchesToMeters(23);   //TODO FIXME SWERVE BASE SIZE
         public static final double wheelBase = Units.inchesToMeters(23);
         public static final double wheelDiameter = Units.inchesToMeters(3.94);
         public static final double wheelCircumference = wheelDiameter * Math.PI;
@@ -77,7 +77,7 @@ public final class Constants {
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.25;
 
-        public static final double driveGearRatio = (8.14 / 1.0); // 6.86:1
+        public static final double driveGearRatio = (6.75 / 1.0); // 6.86:1
         public static final double angleGearRatio = (12.8 / 1.0); // 12.8:1
 
         public static final SwerveDriveKinematics swerveKinematics =
@@ -136,10 +136,10 @@ public final class Constants {
          * Front Left Module - Module 0.
          */
         public static final class Mod0 {
-            public static final int driveMotorID = 1;
-            public static final int angleMotorID = 4;
-            public static final int canCoderID = 1;
-            public static final double angleOffset = 191.25;
+            public static final int driveMotorID = 7;
+            public static final int angleMotorID = 6;
+            public static final int canCoderID = 13;
+            public static final double angleOffset = 307.8;
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -148,10 +148,10 @@ public final class Constants {
          */
 
         public static final class Mod1 {
-            public static final int driveMotorID = 3;
+            public static final int driveMotorID = 4;
             public static final int angleMotorID = 2;
-            public static final int canCoderID = 2;
-            public static final double angleOffset = 290.127;
+            public static final int canCoderID = 12;
+            public static final double angleOffset = 152.6;
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -160,10 +160,10 @@ public final class Constants {
          * Back Left Module - Module 2.
          */
         public static final class Mod2 {
-            public static final int driveMotorID = 6;
-            public static final int angleMotorID = 8;
-            public static final int canCoderID = 4;
-            public static final double angleOffset = 122.344;
+            public static final int driveMotorID = 0;
+            public static final int angleMotorID = 3;
+            public static final int canCoderID = 11;
+            public static final double angleOffset = 242.75;
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -172,15 +172,12 @@ public final class Constants {
          * Back Right Module - Module 3.
          */
         public static final class Mod3 {
-            public static final int driveMotorID = 7;
+            public static final int driveMotorID = 1;
             public static final int angleMotorID = 5;
-            public static final int canCoderID = 3;
-            public static final double angleOffset = 248.994;
+            public static final int canCoderID = 10;
+            public static final double angleOffset = 58.3;
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
-        }
-
-        public void setDefaultCommand(TeleopSwerve teleopSwerve) {
         }
 
     }
