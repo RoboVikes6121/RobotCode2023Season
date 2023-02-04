@@ -124,22 +124,23 @@ public class Robot extends TimedRobot {
 /*
 * to be deleted and made pretty
 */
-public void dAuton(){
-// get distance from out gyro
-// determine how far we want to travel
-// compare our gyro distance reading and determine if we still need to move forward
-// keep track of other coordinates, x, y, z
-if (m_timer.get() < 0){
-  driveforward(0);
-}
-else if(m_timer.get() > 0 & m_timer.get() < 1.5){
-  driveforward(.2);
-}
-}
+// public void dAuton(){
+// // get distance from out gyro
+// // determine how far we want to travel
+// // compare our gyro distance reading and determine if we still need to move forward
+// // keep track of other coordinates, x, y, z
+// if (m_timer.get() < 0){
+//   driveforward(0);
+// }
+// else if(m_timer.get() > 0 & m_timer.get() < 1.5){
+//   driveforward(.2);
+// }
+// }
 
-public static void driveforward(double power) {
-}
+// public static void driveforward(double power) {
+// }
 
-public static int m_timer() {
-  return 0;
-}}
+// public static int m_timer() {
+//   return 0;
+//  }
+}

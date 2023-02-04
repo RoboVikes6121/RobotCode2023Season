@@ -12,7 +12,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.modules.AutoBase;
 import frc.robot.subsystems.Swerve;
-
+//import frc.robot.modules.AutoBase;
 /**
  * Autonomous that aligns limelight then executes a trajectory.
  */
@@ -26,7 +26,7 @@ public class RunAuton extends AutoBase {
      */
     public RunAuton(Swerve swerve) {
         super(swerve);
-        PathPlannerTrajectory p0 = PathPlanner.loadPath("New Path", 6, 3);
+        PathPlannerTrajectory p0 = PathPlanner.loadPath("test", 6, 3);
         PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
         PathPlannerState initialState = p0.getInitialState();
         // TurnToAngle firstCommand = new TurnToAngle(swerve, 250, false);
