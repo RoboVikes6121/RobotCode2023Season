@@ -21,7 +21,7 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.StabilizerController;
+//import frc.robot.subsystems.StabilizerController;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,7 +32,7 @@ import frc.robot.subsystems.StabilizerController;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-  private final StabilizerController m_StabilizerController = new StabilizerController();
+  //private final StabilizerController m_StabilizerController = new StabilizerController();
   private final Swerve m_Swerve = new Swerve();
 
   private final XboxController m_controller = new XboxController(0);
@@ -50,14 +50,14 @@ public class RobotContainer {
     // Right stick X axis -> rotation
     m_Swerve.setDefaultCommand(new TeleopSwerve(m_Swerve, m_controller, Constants.Swerve.isFieldRelative, Constants.Swerve.isOpenLoop));
 
-    while(m_controller.getBButton()){
+    /*while(m_controller.getBButton()){
       m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
       m_drivetrainSubsystem,
       () -> -modifyAxis(m_StabilizerController.stabX() * .2),
       () -> -modifyAxis(m_StabilizerController.stabY() * .2),
       () -> -modifyAxis(m_controller.getRightX() * (.2 * Math.PI))
     ));
-    }
+    }*/
 
   SmartDashboard.putNumber("lx", m_controller.getLeftX() );
     // Configure the button bindings

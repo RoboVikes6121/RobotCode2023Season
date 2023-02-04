@@ -67,7 +67,7 @@ public final class Constants {
 
         /* Drivetrain Constants */
         public static final double trackWidth = Units.inchesToMeters(18.75);   //TODO FIXME SWERVE BASE SIZE
-        public static final double wheelBase = Units.inchesToMeters(26.75);
+        public static final double wheelBase = Units.inchesToMeters(27);
         public static final double wheelDiameter = Units.inchesToMeters(3.94);
         public static final double wheelCircumference = wheelDiameter * Math.PI;
 

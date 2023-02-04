@@ -44,11 +44,11 @@ public class SwerveModule {
         configAngleEncoder();
 
         /* Angle Motor Config */
-        angleMotor = new TalonFX(moduleConstants.angleMotorID, "canivore");
+        angleMotor = new TalonFX(moduleConstants.angleMotorID, "canivore1");
         configAngleMotor();
 
         /* Drive Motor Config */
-        driveMotor = new TalonFX(moduleConstants.driveMotorID, "canivore");
+        driveMotor = new TalonFX(moduleConstants.driveMotorID, "canivore2");
         configDriveMotor();
 
 
