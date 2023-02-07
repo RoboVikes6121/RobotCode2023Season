@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.Swerve;
+import frc.robot.autos.RunAuton;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -86,7 +87,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new InstantCommand();
+    // return new InstantCommand();
+    return new RunAuton(m_Swerve);
   }
 
   private static double deadband(double value, double deadband) {
