@@ -24,7 +24,7 @@ public class SwerveModule {
     private double angleOffset;
     private TalonFX angleMotor;
     private TalonFX driveMotor;
-    private CANCoder angleEncoder;
+    private CANCoder angleEncoder = new CANCoder(11);
     private double lastAngle;
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS,
         Constants.Swerve.driveKV, Constants.Swerve.driveKA);
@@ -38,11 +38,12 @@ public class SwerveModule {
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants) {
         this.moduleNumber = moduleNumber;
         angleOffset = moduleConstants.angleOffset;
-
+        System.out.println("here");
         /* Angle Encoder Config */
-        angleEncoder = new CANCoder(moduleConstants.cancoderID);
+        //angleEncoder = new CANCoder(11,"");//moduleConstants.cancoderID);
+        System.out.println("here.5");
         configAngleEncoder();
-
+        System.out.println("here2");
         /* Angle Motor Config */
         angleMotor = new TalonFX(moduleConstants.angleMotorID);
         configAngleMotor();

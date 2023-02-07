@@ -24,14 +24,14 @@ import frc.robot.subsystems.DrivetrainSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  UsbCamera camera1;
-  UsbCamera camera2;
-  UsbCamera camera3;
-  UsbCamera camera4; 
+  // UsbCamera camera1;
+  // UsbCamera camera2;
+  // UsbCamera camera3;
+  // UsbCamera camera4; 
   Timer m_timer = new Timer();
   private Command m_autonomousCommand;
 
-  public static CTREConfigs ctreConfigs;
+  public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
 
   /**
@@ -42,13 +42,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    // ctreConfigs = new CTREConfigs();
     m_robotContainer = new RobotContainer();
-    camera1 = CameraServer.startAutomaticCapture(0);
-    camera2 = CameraServer.startAutomaticCapture(1);
-    camera3 = CameraServer.startAutomaticCapture(2);
-    camera4 = CameraServer.startAutomaticCapture(3); 
+    // camera1 = CameraServer.startAutomaticCapture(0);
+    // camera2 = CameraServer.startAutomaticCapture(1);
+    // camera3 = CameraServer.startAutomaticCapture(2);
+    // camera4 = CameraServer.startAutomaticCapture(3); 
 
-    ctreConfigs = new CTREConfigs();
+    
   }
 
   /*
@@ -66,7 +67,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     // SmartDashboard.putNumber("mvp", DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND);
-    SmartDashboard.putNumber("speed",SdsModuleConfigurations.MK4I_L2.getDriveReduction());
+    // SmartDashboard.putNumber("speed",SdsModuleConfigurations.MK4I_L2.getDriveReduction());
     // SmartDashboard.putNumber("mav", DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
     
     //SmartDashboard.putNumber("joy", RobotContainer.m_controller.getLeftX());

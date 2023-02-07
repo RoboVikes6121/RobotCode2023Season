@@ -4,16 +4,42 @@
 
 package frc.robot.commands;
 
+import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.modules.AutoBase;
+import frc.robot.subsystems.Swerve;
 
 /** Add your docs here. */
-public class RunAuton {
+public class RunAuton extends AutoBase{
 
-    
+    Swerve swerve;
+
+    /**
+     * Autonomous that aligns limelight then executes a trajectory.
+     *
+     * @param swerve swerve subsystem
+     */
+    public RunAuton(Swerve swerve) {
+        super(swerve);
+        PathPlannerTrajectory p0 = PathPlanner.loadPath("test", 6, 3);
+        PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
+        PathPlannerState initialState = p0.getInitialState();
+        // TurnToAngle firstCommand = new TurnToAngle(swerve, 250, false);
+
+        addCommands(new InstantCommand(() -> swerve.zeroGyro()),
+            new InstantCommand(
+                () -> swerve.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(),
+                    initialState.holonomicRotation))),
+            firstCommand);
+
+    }
     
     // public SequentialCommandGroup followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFirstPath){
     //         return new SequentialCommandGroup(

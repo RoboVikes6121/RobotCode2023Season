@@ -171,11 +171,12 @@ public final class Constants {
         /**
          * Back Right Module - Module 3.
          */
+        // FIXME canCoderID
         public static final class Mod3 {
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 5;
-            public static final int canCoderID = 10;
-            public static final double angleOffset = 58.3;
+            public static final int canCoderID = 10; 
+            public static final double angleOffset = 58.3; 
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }

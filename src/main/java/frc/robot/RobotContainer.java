@@ -48,6 +48,7 @@ public class RobotContainer {
     // Left stick Y axis -> forward and backwards movement
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
+    // m_Swerve.setDefaultCommand(new TeleopSwerve(m_Swerve, m_controller, Constants.Swerve.isFieldRelative, Constants.Swerve.isOpenLoop));
     m_Swerve.setDefaultCommand(new TeleopSwerve(m_Swerve, m_controller, Constants.Swerve.isFieldRelative, Constants.Swerve.isOpenLoop));
 
     /*while(m_controller.getBButton()){
@@ -61,7 +62,7 @@ public class RobotContainer {
 
   SmartDashboard.putNumber("lx", m_controller.getLeftX() );
     // Configure the button bindings
-    configureButtonBindings();
+    // configureButtonBindings();
   }
 
   /**

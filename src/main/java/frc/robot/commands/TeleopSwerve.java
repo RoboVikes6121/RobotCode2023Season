@@ -58,3 +58,18 @@ public class TeleopSwerve extends CommandBase {
         swerveDrive.drive(translation, rotation, fieldRelative, openLoop);
     }
 }
+
+
+/**
+ * 
+at com.ctre.phoenix.CTREJNIWrapper.<clinit>(CTREJNIWrapper.java:10)
+at com.ctre.phoenix.sensors.CANCoder.<init>(CANCoder.java:68)
+at frc.robot.modules.SwerveModule.<init>(SwerveModule.java:43)
+at frc.robot.subsystems.Swerve.<init>(Swerve.java:38)
+at frc.robot.RobotContainer.<init>(RobotContainer.java:36)
+at frc.robot.Robot.robotInit(Robot.java:45)
+at edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:343)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:433)
+at frc.robot.Main.main(Main.java:23)
+ */
