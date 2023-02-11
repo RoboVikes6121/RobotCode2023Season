@@ -5,6 +5,7 @@
 package frc.robot.commands;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -46,7 +47,9 @@ public class TeleopSwerve extends CommandBase {
         this.yaxis = -controller.getLeftY();
         this.xaxis = -controller.getLeftX();
         this.raxis = -controller.getRightX();
-
+        SmartDashboard.putNumber(getName(), raxis);
+        SmartDashboard.putNumber(getName(), xaxis);
+        SmartDashboard.putNumber(getName(), yaxis);
         /* Deadbands */
         yaxis = (Math.abs(yaxis) < Constants.stickDeadband) ? 0 : yaxis;
         xaxis = (Math.abs(xaxis) < Constants.stickDeadband) ? 0 : xaxis;
