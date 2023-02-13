@@ -44,9 +44,9 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        this.yaxis = -controller.getLeftY();
-        this.xaxis = -controller.getLeftX();
-        this.raxis = -controller.getRightX();
+        this.yaxis = controller.getLeftY();
+        this.xaxis = controller.getLeftX();
+        this.raxis = controller.getRightX();
         SmartDashboard.putNumber(getName(), raxis);
         SmartDashboard.putNumber(getName(), xaxis);
         SmartDashboard.putNumber(getName(), yaxis);
