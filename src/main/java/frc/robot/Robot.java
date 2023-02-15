@@ -10,13 +10,16 @@ import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.modules.CTREConfigs;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Intake;
 import pabeles.concurrency.ConcurrencyOps.Reset;
 
 /**
@@ -32,7 +35,7 @@ public class Robot extends TimedRobot {
   // UsbCamera camera4; 
   Timer m_timer = new Timer();
   private Command m_autonomousCommand;
-
+  Joystick operator = new Joystick(1);
   public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
 
@@ -114,7 +117,26 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    if(operator.getRawButton(16)){
+      Arm.armExtend();
+    }
+    if(operator.getRawButton(15)){
+      Arm.armRetract();
+    }
+    if(operator.getRawButton(14)){
+      Arm.armStop();
+    }
+    if(operator.getRawButton(7)){
+      Intake.Pickup();
+    }
+    if(operator.getRawButton(8)){
+      Intake.Drop();
+    }
+    if(operator.getRawButton(9)){
+      Intake.intakestop();
+    }
+  }
 
   @Override
   public void testInit() {
