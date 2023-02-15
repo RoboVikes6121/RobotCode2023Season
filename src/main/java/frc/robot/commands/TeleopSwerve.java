@@ -3,76 +3,47 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
-/**
- * Creates an command for driving the swerve drive during tele-op
- */
-public class TeleopSwerve extends CommandBase {
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
-    private double rotation;
-    private Translation2d translation;
-    private boolean fieldRelative;
-    private boolean openLoop;
-    private Swerve swerveDrive;
-    private double yaxis;
-    private double xaxis;
-    private double raxis;
-    private XboxController controller;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-    /**
-     * Creates an command for driving the swerve drive during tele-op
-     *
-     * @param swerveDrive The instance of the swerve drive subsystem
-     * @param fieldRelative Whether the movement is relative to the field or absolute
-     * @param openLoop Open or closed loop system
-     */
-    public TeleopSwerve(Swerve swerveDrive, XboxController controller, boolean fieldRelative,
-        boolean openLoop) {
-        this.swerveDrive = swerveDrive;
-        addRequirements(swerveDrive);
-        this.fieldRelative = fieldRelative;
-        this.openLoop = openLoop;
-        this.controller = controller;
+
+public class TeleopSwerve extends CommandBase {    
+    private Swerve s_Swerve;    
+    private DoubleSupplier translationSup;
+    private DoubleSupplier strafeSup;
+    private DoubleSupplier rotationSup;
+    private BooleanSupplier robotCentricSup;
+
+    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
+        this.s_Swerve = s_Swerve;
+        addRequirements(s_Swerve);
+
+        this.translationSup = translationSup;
+        this.strafeSup = strafeSup;
+        this.rotationSup = rotationSup;
+        this.robotCentricSup = robotCentricSup;
     }
 
     @Override
     public void execute() {
-        this.yaxis = controller.getLeftY();
-        this.xaxis = controller.getLeftX();
-        this.raxis = controller.getRightX();
-        SmartDashboard.putNumber(getName(), raxis);
-        SmartDashboard.putNumber(getName(), xaxis);
-        SmartDashboard.putNumber(getName(), yaxis);
-        /* Deadbands */
-        yaxis = (Math.abs(yaxis) < Constants.stickDeadband) ? 0 : yaxis;
-        xaxis = (Math.abs(xaxis) < Constants.stickDeadband) ? 0 : xaxis;
-        raxis = (Math.abs(raxis) < Constants.stickDeadband) ? 0 : raxis;
-        // System.out.println(swerveDrive.getStringYaw());
+        /* Get Values, Deadband*/
+        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
+        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
 
-        translation = new Translation2d(yaxis, xaxis).times(Constants.Swerve.maxSpeed);
-        rotation = raxis * Constants.Swerve.maxAngularVelocity;
-        swerveDrive.drive(translation, rotation, fieldRelative, openLoop);
+        /* Drive */
+        s_Swerve.drive(
+            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
+            rotationVal * Constants.Swerve.maxAngularVelocity, 
+            !robotCentricSup.getAsBoolean(), 
+            true
+        );
     }
 }
-
-
-/**
- * 
-at com.ctre.phoenix.CTREJNIWrapper.<clinit>(CTREJNIWrapper.java:10)
-at com.ctre.phoenix.sensors.CANCoder.<init>(CANCoder.java:68)
-at frc.robot.modules.SwerveModule.<init>(SwerveModule.java:43)
-at frc.robot.subsystems.Swerve.<init>(Swerve.java:38)
-at frc.robot.RobotContainer.<init>(RobotContainer.java:36)
-at frc.robot.Robot.robotInit(Robot.java:45)
-at edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)
-at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:343)
-at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:433)
-at frc.robot.Main.main(Main.java:23)
- */
