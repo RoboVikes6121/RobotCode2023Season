@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.modules.CTREConfigs;
-import frc.robot.subsystems.DrivetrainSubsystem;
 import pabeles.concurrency.ConcurrencyOps.Reset;
 
 /**
@@ -46,6 +45,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     // ctreConfigs = new CTREConfigs();
+    
     m_robotContainer = new RobotContainer();
     
     // camera1 = CameraServer.startAutomaticCapture(0);

@@ -43,7 +43,11 @@ public class Swerve extends SubsystemBase {
             new SwerveModule(3, Constants.Swerve.Mod3.constants)
         };
             Timer.delay(1);
-            for(SwerveModule mod:swerveMods){mod.resetToAbsolute();}
+
+            for(SwerveModule mod:swerveMods){
+                mod.resetToAbsolute();
+            }
+
         swerveOdometry =
             new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getPositions());
     }
