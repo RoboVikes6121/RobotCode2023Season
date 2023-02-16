@@ -119,6 +119,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    Arm.writeArm(operator.getRawAxis(1));
     if(operator.getRawButton(16)){
       Arm.armExtend();
     }

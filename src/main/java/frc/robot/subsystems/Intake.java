@@ -11,7 +11,7 @@ import frc.robot.Constants;
 
 /** Add your docs here. */
 public class Intake{
-    static TalonSRX Motor = new TalonSRX(9);
+   public static TalonSRX Motor = new TalonSRX(9);
 
 public static void Pickup(){
     Motor.set(ControlMode.PercentOutput, Constants.PickupSpeed);
