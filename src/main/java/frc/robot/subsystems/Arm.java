@@ -9,13 +9,14 @@ import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.playingwithfusion.TimeOfFlight;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 /** Add your docs here. */
 public class Arm {
     static TalonFX arm = new TalonFX(8);
-//SmartDashboard.putnumber.
+   
 TimeOfFlight proximitySensor = new TimeOfFlight(Constants.proxSensor); // the sensor we will use to check arm extension
     
 public static void armInit(){
@@ -29,6 +30,7 @@ public static void armInit(){
 }
 public static void armExtend(){
     arm.set(ControlMode.PercentOutput, -.3);
+   // SmartDashboard.putNumber("Encoder", arm.getActiveTrajectoryPositio );
 }
 public static void armStop(){
     arm.set(ControlMode.PercentOutput, 0);

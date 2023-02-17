@@ -3,7 +3,7 @@
 
 package frc.robot;
 
-import org.apache.commons.exec.ShutdownHookProcessDestroyer;
+//import org.apache.commons.exec.ShutdownHookProcessDestroyer;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.playingwithfusion.TimeOfFlight;
@@ -27,8 +27,8 @@ import frc.robot.modules.SwerveModuleConstants;
  */
 
 public final class Constants {
-    public static final double OutTakeSpeed = -.3;
-    public static final double PickupSpeed = .3;
+    public static final double OutTakeSpeed = -.6;
+    public static final double PickupSpeed = .6;
     public static final double stickDeadband = .1;
     
     /**
@@ -148,7 +148,7 @@ public final class Constants {
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 6;
             public static final int canCoderID = 13;
-            public static final double angleOffset = 100.236;
+            public static final double angleOffset = 308.4;
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -160,7 +160,7 @@ public final class Constants {
             public static final int driveMotorID = 4;
             public static final int angleMotorID = 2;
             public static final int canCoderID = 12;
-            public static final double angleOffset = 268.251;
+            public static final double angleOffset = 148.8;
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -172,7 +172,7 @@ public final class Constants {
             public static final int driveMotorID = 0;
             public static final int angleMotorID = 3;
             public static final int canCoderID = 11;
-            public static final double angleOffset = 380.131;
+            public static final double angleOffset = 241.7;
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -185,7 +185,7 @@ public final class Constants {
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 5;
             public static final int canCoderID = 10; 
-            public static final double angleOffset = 226.669; 
+            public static final double angleOffset = 54; 
             
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
