@@ -85,7 +85,7 @@ import edu.wpi.first.math.util.Units;
     
             boolean driveMotorInvert = false;
             boolean angleMotorInvert = true;
-            boolean canCoderInvert = false;
+            boolean canCoderInvert = true;
             return new COTSFalconSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, canCoderInvert);
         }
     
