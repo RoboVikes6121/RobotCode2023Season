@@ -86,9 +86,6 @@ public final class Constants {
         public static final double openLoopRamp = 1;
         public static final double closedLoopRamp = 1;
 
-        public static final double driveGearRatio = (6.75 / 1.0); // 6.86:1
-        public static final double angleGearRatio = ((150 / 7) / 1); // 12.8:1
-
         public static final SwerveDriveKinematics swerveKinematics =
             new SwerveDriveKinematics(new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
                 new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
@@ -106,17 +103,7 @@ public final class Constants {
         public static final double drivePeakCurrentDuration = 0.1;
         public static final boolean driveEnableCurrentLimit = true;
 
-        /* Angle Motor PID Values */
-        public static final double angleKP = 0.1;
-        public static final double angleKI = 0.0;
-        public static final double angleKD = 0.0;
-        public static final double angleKF = 0.0;
 
-        /* Drive Motor PID Values */
-        public static final double driveKP = 0.1;
-        public static final double driveKI = 0.0;
-        public static final double driveKD = 0.0;
-        public static final double driveKF = 0.0;
 
         /* Drive Motor Characterization Values */
         // divide by 12 to convert from volts to percent output for CTRE
@@ -132,12 +119,33 @@ public final class Constants {
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
         public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
 
+        public static final COTSFalconSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
+            COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
+
+                    /* Module Gear Ratios */
+        public static final double driveGearRatio = chosenModule.driveGearRatio;
+        public static final double angleGearRatio = chosenModule.angleGearRatio;
+
         /* Motor Inverts */
-        public static final boolean driveMotorInvert = false;
-        public static final boolean angleMotorInvert = true;
+        public static final boolean angleMotorInvert = chosenModule.angleMotorInvert;
+        public static final boolean driveMotorInvert = chosenModule.driveMotorInvert;
 
         /* Angle Encoder Invert */
-        public static final boolean canCoderInvert = false;
+        public static final boolean canCoderInvert = chosenModule.canCoderInvert;
+
+        /* Angle Motor PID Values */
+        public static final double angleKP = chosenModule.angleKP;
+        public static final double angleKI = chosenModule.angleKI;
+        public static final double angleKD = chosenModule.angleKD;
+        public static final double angleKF = chosenModule.angleKF;
+        
+        /* Drive Motor PID Values */
+        public static final double driveKP = 0.05; //TODO: This must be tuned to specific robot
+        public static final double driveKI = 0.0;
+        public static final double driveKD = 0.0;
+        public static final double driveKF = 0.0;
+        
+
 
         /* Module Specific Constants */
 
