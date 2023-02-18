@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
   Joystick operator = new Joystick(1);
   public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
-
+  public static Swerve swerve = new Swerve();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -76,6 +76,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    swerve.periodic();
     // SmartDashboard.putNumber("mvp", DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND);
     // SmartDashboard.putNumber("speed",SdsModuleConfigurations.MK4I_L2.getDriveReduction());
     // SmartDashboard.putNumber("mav", DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
@@ -142,7 +143,7 @@ public class Robot extends TimedRobot {
       Intake.intakestop();
     }
   }
-  public static Swerve swerve = new Swerve();
+  
 
   @Override
   public void testInit() {
