@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.playingwithfusion.TimeOfFlight;
 
@@ -28,6 +29,9 @@ public static void armInit(){
     arm.setSelectedSensorPosition(0, 0, 0);
 
 }
+public static double getEncoderValue(){
+    return arm.getSelectedSensorPosition();
+}
 public static void armExtend(){
     arm.set(ControlMode.PercentOutput, -.3);
    // SmartDashboard.putNumber("Encoder", arm.getActiveTrajectoryPositio );
@@ -44,7 +48,22 @@ public static void writeArm(double y){
 
     }
 else{
-    arm.set(ControlMode.PercentOutput, y/2);
+    arm.set(ControlMode.PercentOutput, y/3);
 }
+} // end write arm
+
+public static void autoExtend(){
+while(arm.getSelectedSensorPosition() < 1000){ 
+    arm.set(ControlMode.PercentOutput, -.3);
 }
+arm.set(ControlMode.PercentOutput, 0);
+}
+public static void autoRetract(){ 
+    while(arm.getSelectedSensorPosition() > 100){ 
+        arm.set(ControlMode.PercentOutput, .3);
+    }
+    arm.set(ControlMode.PercentOutput, 0);
+}
+
+
 }

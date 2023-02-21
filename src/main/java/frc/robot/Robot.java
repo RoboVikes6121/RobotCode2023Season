@@ -10,6 +10,7 @@ import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -31,8 +32,8 @@ import pabeles.concurrency.ConcurrencyOps.Reset;
  * project.
  */
 public class Robot extends TimedRobot {
-  // UsbCamera camera1;
-  // UsbCamera camera2;
+   UsbCamera camera1;
+   UsbCamera camera2;
   // UsbCamera camera3;
   // UsbCamera camera4; 
   Timer m_timer = new Timer();
@@ -51,11 +52,11 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     ctreConfigs = new CTREConfigs();
-    
+    Constants.initialpose = swerve.getPose();
     m_robotContainer = new RobotContainer();
     
-    // camera1 = CameraServer.startAutomaticCapture(0);
-    // camera2 = CameraServer.startAutomaticCapture(1);
+     camera1 = CameraServer.startAutomaticCapture(0);
+     camera2 = CameraServer.startAutomaticCapture(1);
     // camera3 = CameraServer.startAutomaticCapture(2);
     // camera4 = CameraServer.startAutomaticCapture(3); 
 
@@ -117,12 +118,14 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    //swerve.resetOdometry(Constants.initialpose);
     // swerve.resetModulesToAbsolute();
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    SmartDashboard.putNumber("arm encoder", Arm.getEncoderValue()); 
     Arm.writeArm(operator.getRawAxis(1));
     if(operator.getRawButton(16)){
       Arm.armExtend();
