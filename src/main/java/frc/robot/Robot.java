@@ -5,17 +5,25 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.sensors.CANCoder;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import frc.robot.modules.CTREConfigs;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Arm;
+//import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Swerve;
+import pabeles.concurrency.ConcurrencyOps.Reset;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -24,31 +32,35 @@ import frc.robot.subsystems.DrivetrainSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  UsbCamera camera1;
-  UsbCamera camera2;
-  UsbCamera camera3;
-  UsbCamera camera4; 
+   UsbCamera camera1;
+   UsbCamera camera2;
+  // UsbCamera camera3;
+  // UsbCamera camera4; 
   Timer m_timer = new Timer();
   private Command m_autonomousCommand;
-
-  public static CTREConfigs ctreConfigs;
+  Joystick operator = new Joystick(1);
+  public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
-
+  public static Swerve swerve = new Swerve();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
+  //FIXME: reset the cancoders when we turn robot on 
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
-    camera1 = CameraServer.startAutomaticCapture(0);
-    camera2 = CameraServer.startAutomaticCapture(1);
-    camera3 = CameraServer.startAutomaticCapture(2);
-    camera4 = CameraServer.startAutomaticCapture(3); 
-
     ctreConfigs = new CTREConfigs();
+    Constants.initialpose = swerve.getPose();
+    m_robotContainer = new RobotContainer();
+    
+     camera1 = CameraServer.startAutomaticCapture(0);
+     camera2 = CameraServer.startAutomaticCapture(1);
+    // camera3 = CameraServer.startAutomaticCapture(2);
+    // camera4 = CameraServer.startAutomaticCapture(3); 
+
+    
   }
 
   /*
@@ -65,8 +77,9 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    swerve.periodic();
     // SmartDashboard.putNumber("mvp", DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND);
-    SmartDashboard.putNumber("speed",SdsModuleConfigurations.MK4I_L2.getDriveReduction());
+    // SmartDashboard.putNumber("speed",SdsModuleConfigurations.MK4I_L2.getDriveReduction());
     // SmartDashboard.putNumber("mav", DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
     
     //SmartDashboard.putNumber("joy", RobotContainer.m_controller.getLeftX());
@@ -74,7 +87,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    //CANCoder.Reset;
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -103,11 +118,35 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    //swerve.resetOdometry(Constants.initialpose);
+    // swerve.resetModulesToAbsolute();
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    SmartDashboard.putNumber("arm encoder", Arm.getEncoderValue()); 
+    Arm.writeArm(operator.getRawAxis(1));
+    if(operator.getRawButton(16)){
+      Arm.armExtend();
+    }
+    if(operator.getRawButton(15)){
+      Arm.armRetract();
+    }
+    if(operator.getRawButton(14)){
+      Arm.armStop();
+    }
+    if(operator.getRawButton(7)){
+      Intake.Pickup();
+    }
+    if(operator.getRawButton(8)){
+      Intake.Drop();
+    }
+    if(operator.getRawButton(9)){
+      Intake.intakestop();
+    }
+  }
+  
 
   @Override
   public void testInit() {

@@ -4,6 +4,8 @@
 
 package frc.robot.modules;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 
 /**
  * Custom constants for each swerve module.
@@ -12,20 +14,20 @@ public class SwerveModuleConstants {
     public final int driveMotorID;
     public final int angleMotorID;
     public final int cancoderID;
-    public final double angleOffset;
+    public final Rotation2d angleOffset;
 
     /**
      * @param driveMotorID CAN ID of the driving motor
      * @param angleMotorID CAN ID of the agnle motor
      * @param canCoderID CAN ID of the encoder
-     * @param angleOffset Offset angle of something
+     * @param angleoffset2 Offset angle of something
      */
 
     public SwerveModuleConstants(int driveMotorID, int angleMotorID, int canCoderID,
-        double angleOffset) {
+        Rotation2d angleoffset2) {
         this.driveMotorID = driveMotorID;
         this.angleMotorID = angleMotorID;
         this.cancoderID = canCoderID;
-        this.angleOffset = angleOffset;
+        this.angleOffset = angleoffset2;
     }
 }

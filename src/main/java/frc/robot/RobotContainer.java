@@ -12,15 +12,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Swerve;
-import frc.robot.commands.DefaultDriveCommand;
+import frc.robot.autos.RunAuton;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.subsystems.DrivetrainSubsystem;
 //import frc.robot.subsystems.StabilizerController;
 
 /**
@@ -31,11 +28,20 @@ import frc.robot.subsystems.DrivetrainSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  //private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   //private final StabilizerController m_StabilizerController = new StabilizerController();
   private final Swerve m_Swerve = new Swerve();
 
   private final XboxController m_controller = new XboxController(0);
+  /* Drive Controls */
+  private final int translationAxis = XboxController.Axis.kLeftY.value;
+  private final int strafeAxis = XboxController.Axis.kLeftX.value;
+  private final int rotationAxis = XboxController.Axis.kRightX.value;
+
+  /* Driver Buttons */
+  private final JoystickButton zeroGyro = new JoystickButton(m_controller, XboxController.Button.kY.value);
+  private final JoystickButton robotCentric = new JoystickButton(m_controller, XboxController.Button.kLeftBumper.value);
+
     // private final Joystick m_joystick = new Joystick(0);
     // private final Joystick m_joystick2 = new Joystick(1);
 
@@ -48,8 +54,16 @@ public class RobotContainer {
     // Left stick Y axis -> forward and backwards movement
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
-    m_Swerve.setDefaultCommand(new TeleopSwerve(m_Swerve, m_controller, Constants.Swerve.isFieldRelative, Constants.Swerve.isOpenLoop));
-
+    // m_Swerve.setDefaultCommand(new TeleopSwerve(m_Swerve, m_controller, Constants.Swerve.isFieldRelative, Constants.Swerve.isOpenLoop));
+    m_Swerve.setDefaultCommand(
+      new TeleopSwerve(
+          m_Swerve, 
+          () -> -m_controller.getRawAxis(translationAxis), 
+          () -> -m_controller.getRawAxis(strafeAxis), 
+          () -> -m_controller.getRawAxis(rotationAxis), 
+          () -> robotCentric.getAsBoolean()
+      )
+  );
     /*while(m_controller.getBButton()){
       m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
       m_drivetrainSubsystem,
@@ -76,6 +90,8 @@ public class RobotContainer {
   //           // No requirements because we don't need to interrupt anything
   //           .whenPressed(m_Swerve::reset);
 
+        /* Driver Buttons */
+        zeroGyro.onTrue(new InstantCommand(() -> m_Swerve.zeroGyro()));
     
   }
 
@@ -86,7 +102,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new InstantCommand();
+    // return new InstantCommand();
+    return new RunAuton(m_Swerve);
   }
 
   private static double deadband(double value, double deadband) {
