@@ -30,4 +30,7 @@ public class SwerveModuleConstants {
         this.cancoderID = canCoderID;
         this.angleOffset = angleoffset2;
     }
+
+    public SwerveModuleConstants(int drivemotorid2, int anglemotorid2, int cancoderid2, double angleoffset2) {
+    }
 }
