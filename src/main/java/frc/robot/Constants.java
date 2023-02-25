@@ -5,6 +5,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -23,6 +24,7 @@ import frc.robot.modules.SwerveModuleConstants;
 public final class Constants {
 
     public static final double stickDeadband = .1;
+    public static final int proxSensor = 0;
     /**
      * The left-to-right distance between the drivetrain wheels
      *
@@ -221,5 +223,6 @@ public final class Constants {
             new TrapezoidProfile.Constraints(kMaxAngularSpeedRadiansPerSecond,
                 kMaxAngularSpeedRadiansPerSecondSquared);
     } // end auto constants
+        public static Pose2d initialpose;
 
 } // ends class constants
