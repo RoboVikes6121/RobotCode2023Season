@@ -74,11 +74,16 @@ public final class Constants {
         public static final boolean isFieldRelative = true;
         public static final boolean isOpenLoop = false;
 
+<<<<<<< HEAD
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.25;
 
         public static final double driveGearRatio = (6.75 / 1.0); // 6.86:1
         public static final double angleGearRatio = (12.8 / 1.0); // 12.8:1
+=======
+        public static final double openLoopRamp = 1;
+        public static final double closedLoopRamp = 1;
+>>>>>>> parent of dcc1d51 (fixed driving)
 
         public static final SwerveDriveKinematics swerveKinematics =
             new SwerveDriveKinematics(new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
@@ -139,7 +144,11 @@ public final class Constants {
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 6;
             public static final int canCoderID = 13;
+<<<<<<< HEAD
             public static final double angleOffset = 307.8;
+=======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(310.67);
+>>>>>>> parent of dcc1d51 (fixed driving)
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -151,7 +160,11 @@ public final class Constants {
             public static final int driveMotorID = 4;
             public static final int angleMotorID = 2;
             public static final int canCoderID = 12;
+<<<<<<< HEAD
             public static final double angleOffset = 152.6;
+=======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(148.94);
+>>>>>>> parent of dcc1d51 (fixed driving)
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -163,7 +176,11 @@ public final class Constants {
             public static final int driveMotorID = 0;
             public static final int angleMotorID = 3;
             public static final int canCoderID = 11;
+<<<<<<< HEAD
             public static final double angleOffset = 242.75;
+=======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(241.51);
+>>>>>>> parent of dcc1d51 (fixed driving)
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -174,8 +191,13 @@ public final class Constants {
         public static final class Mod3 {
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 5;
+<<<<<<< HEAD
             public static final int canCoderID = 10;
             public static final double angleOffset = 58.3;
+=======
+            public static final int canCoderID = 10; 
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(56.42); 
+>>>>>>> parent of dcc1d51 (fixed driving)
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
