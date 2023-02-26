@@ -118,8 +118,8 @@ public final class Constants {
         public static final double maxAngularVelocity = 5;
 
         /* Neutral Modes */
-        public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
-        public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
+        public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
+        public static final NeutralMode driveNeutralMode = NeutralMode.Coast;
 
         public static final COTSFalconSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
             COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
@@ -219,5 +219,14 @@ public final class Constants {
             new TrapezoidProfile.Constraints(kMaxAngularSpeedRadiansPerSecond,
                 kMaxAngularSpeedRadiansPerSecondSquared);
     } // end auto constants
+
+    public static final class ArmConstants {
+        public static final double kArmP = 0.1;
+        public static final double kArmI = 0;
+        public static final double kArmD = 0;
+        public static final double kArmIZone = 100;
+        public static final double kArmPeakOutput = 0.3;
+        public static final double kArmAllowedError = 50;
+    }
 
 } // ends class constants

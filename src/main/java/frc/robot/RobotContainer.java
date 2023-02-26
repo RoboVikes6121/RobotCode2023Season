@@ -10,6 +10,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -32,7 +33,8 @@ public class RobotContainer {
   //private final StabilizerController m_StabilizerController = new StabilizerController();
   private final Swerve m_Swerve = new Swerve();
 
-  private final XboxController m_controller = new XboxController(0);
+  public final XboxController m_controller = new XboxController(0);
+  public final Joystick m_operator = new Joystick(1);
   /* Drive Controls */
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;

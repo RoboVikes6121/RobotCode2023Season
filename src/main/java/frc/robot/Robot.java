@@ -38,10 +38,12 @@ public class Robot extends TimedRobot {
   // UsbCamera camera4; 
   Timer m_timer = new Timer();
   private Command m_autonomousCommand;
-  Joystick operator = new Joystick(1);
+  // Joystick operator = new Joystick(1);
   public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
-  public static Swerve swerve = new Swerve();
+  public Swerve swerve = new Swerve();
+  public Arm arm = new Arm();
+  public Intake intake = new Intake();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -59,6 +61,13 @@ public class Robot extends TimedRobot {
      camera2 = CameraServer.startAutomaticCapture(1);
     // camera3 = CameraServer.startAutomaticCapture(2);
     // camera4 = CameraServer.startAutomaticCapture(3); 
+
+    try{
+      arm.armInit();
+      
+    }catch(Exception e){
+      System.out.println(e);
+    }
 
     
   }
@@ -78,6 +87,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     swerve.periodic();
+    SmartDashboard.putNumber("arm encoder", arm.getEncoderValue()); 
     // SmartDashboard.putNumber("mvp", DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND);
     // SmartDashboard.putNumber("speed",SdsModuleConfigurations.MK4I_L2.getDriveReduction());
     // SmartDashboard.putNumber("mav", DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
@@ -125,28 +135,33 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    SmartDashboard.putNumber("arm encoder", Arm.getEncoderValue()); 
-    Arm.writeArm(operator.getRawAxis(1));
-    if(operator.getRawButton(16)){
-      Arm.armExtend();
+    // SmartDashboard.putNumber("arm encoder", Arm.getEncoderValue()); //Moved to robotPeriodic
+
+    //Good practice to avoid the posibility of setting a motor speed multiple times in a single iteration of code.
+    
+    if(m_robotContainer.m_operator.getRawButton(16)){
+      // arm.armExtend();
+      arm.armToPosition(1000); //When button is held move arm to 1000 encoder ticks
+    }else if(m_robotContainer.m_operator.getRawButton(15)){
+      // arm.armRetract();
+      arm.armToPosition(75); //When button is held move arm to 75 encoder ticks
+      //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
+    }else if(m_robotContainer.m_operator.getRawButton(14)){
+      // arm.armStop();
+      arm.armToPosition(2000);  //When button is held move arm to 2000 encoder ticks
+    }else{
+      arm.writeArm(m_robotContainer.m_operator.getRawAxis(1));
     }
-    if(operator.getRawButton(15)){
-      Arm.armRetract();
-    }
-    if(operator.getRawButton(14)){
-      Arm.armStop();
-    }
-    if(operator.getRawButton(7)){
-      Intake.Pickup();
-    }
-    if(operator.getRawButton(8)){
-      Intake.Drop();
-    }
-    if(operator.getRawButton(9)){
-      Intake.intakestop();
+    if(m_robotContainer.m_operator.getRawButton(7)){
+      intake.Pickup();
+    }else if(m_robotContainer.m_operator.getRawButton(8)){
+      intake.Drop();
+    }else{  //Need to have a default, if no buttons are held, then the motor stops.
+      intake.intakestop();
     }
   }
-  
+  //If the motor controller(TalonSRX/TalonFX) is not set to a new value/speed for a certain amount of time, it will enter a safety mode and disable itself.
+  //This is a safety function.
 
   @Override
   public void testInit() {

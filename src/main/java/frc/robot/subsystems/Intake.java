@@ -11,15 +11,15 @@ import frc.robot.Constants;
 
 /** Add your docs here. */
 public class Intake{
-   public static TalonSRX Motor = new TalonSRX(9);
+   public TalonSRX Motor = new TalonSRX(9);
 
-public static void Pickup(){
+public void Pickup(){
     Motor.set(ControlMode.PercentOutput, Constants.PickupSpeed);
 }
-public static void Drop(){
+public void Drop(){
     Motor.set(ControlMode.PercentOutput, Constants.OutTakeSpeed);
 }
-public static void intakestop(){
+public void intakestop(){
     Motor.set(ControlMode.PercentOutput, 0);
 }
 
