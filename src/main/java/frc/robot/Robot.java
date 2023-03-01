@@ -139,22 +139,22 @@ public class Robot extends TimedRobot {
 
     //Good practice to avoid the posibility of setting a motor speed multiple times in a single iteration of code.
     
-    if(m_robotContainer.m_operator.getRawButton(16)){
+    if(m_robotContainer.m_Joystick.getRawButton(11)){
       // arm.armExtend();
       arm.armToPosition(1000); //When button is held move arm to 1000 encoder ticks
-    }else if(m_robotContainer.m_operator.getRawButton(15)){
+    }else if(m_robotContainer.m_Joystick.getRawButton(9)){
       // arm.armRetract();
       arm.armToPosition(75); //When button is held move arm to 75 encoder ticks
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
-    }else if(m_robotContainer.m_operator.getRawButton(14)){
+    }else if(m_robotContainer.m_Joystick.getRawButton(12)){
       // arm.armStop();
       arm.armToPosition(2000);  //When button is held move arm to 2000 encoder ticks
     }else{
-      arm.writeArm(m_robotContainer.m_operator.getRawAxis(1));
+      arm.writeArm(m_robotContainer.m_Joystick.getRawAxis(1));
     }
-    if(m_robotContainer.m_operator.getRawButton(7)){
+    if(m_robotContainer.m_Joystick.getRawButton(3)){
       intake.Pickup();
-    }else if(m_robotContainer.m_operator.getRawButton(8)){
+    }else if(m_robotContainer.m_Joystick.getRawButton(4)){
       intake.Drop();
     }else{  //Need to have a default, if no buttons are held, then the motor stops.
       intake.intakestop();

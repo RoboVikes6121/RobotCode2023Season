@@ -33,16 +33,17 @@ public class RobotContainer {
   //private final StabilizerController m_StabilizerController = new StabilizerController();
   private final Swerve m_Swerve = new Swerve();
 
-  public final XboxController m_controller = new XboxController(0);
-  public final Joystick m_operator = new Joystick(1);
+  public final XboxController m_controller = new XboxController(1);
+  public final Joystick m_operator = new Joystick(0);
+  public final Joystick m_Joystick = new Joystick(1); 
   /* Drive Controls */
-  private final int translationAxis = XboxController.Axis.kLeftY.value;
-  private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;
+  private final int translationAxis = Joystick.AxisType.kY.value;
+  private final int strafeAxis = Joystick.AxisType.kX.value;
+  private final int rotationAxis = Joystick.AxisType.kZ.value;
 
   /* Driver Buttons */
   private final JoystickButton zeroGyro = new JoystickButton(m_controller, XboxController.Button.kY.value);
-  private final JoystickButton robotCentric = new JoystickButton(m_controller, XboxController.Button.kLeftBumper.value);
+  private final JoystickButton robotCentric = new JoystickButton(m_operator, Joystick.ButtonType.kTrigger.value);
 
     // private final Joystick m_joystick = new Joystick(0);
     // private final Joystick m_joystick2 = new Joystick(1);
@@ -60,9 +61,9 @@ public class RobotContainer {
     m_Swerve.setDefaultCommand(
       new TeleopSwerve(
           m_Swerve, 
-          () -> -m_controller.getRawAxis(translationAxis), 
-          () -> -m_controller.getRawAxis(strafeAxis), 
-          () -> -m_controller.getRawAxis(rotationAxis), 
+          () -> -m_operator.getRawAxis(translationAxis), 
+          () -> -m_operator.getRawAxis(strafeAxis), 
+          () -> -m_operator.getRawAxis(rotationAxis), 
           () -> robotCentric.getAsBoolean()
       )
   );
