@@ -139,27 +139,40 @@ public class Robot extends TimedRobot {
 
     //Good practice to avoid the posibility of setting a motor speed multiple times in a single iteration of code.
     
-    if(m_robotContainer.m_Joystick.getRawButton(11)){
+    if(m_robotContainer.m_Joystick.getRawButton(12)){
       // arm.armExtend();
       arm.armToPosition(54000); //When button is held move arm to 1000 encoder ticks
-    }else if(m_robotContainer.m_Joystick.getRawButton(9)){
+    }
+    else if(m_robotContainer.m_Joystick.getRawButton(11)){
       // arm.armRetract();
       arm.armToPosition(75); //When button is held move arm to 75 encoder ticks
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
-    }else if(m_robotContainer.m_Joystick.getRawButton(12)){
+    }
+    else if(m_robotContainer.m_Joystick.getRawButton(13)){
       // arm.armStop();
-      arm.armToPosition(82000);  //When button is held move arm to 2000 encoder ticks
-    }else{
-      arm.writeArm(m_robotContainer.m_Joystick.getRawAxis(1));
+    
+      arm.armToPosition(70000);  //When button is held move arm to 2000 encoder ticks
     }
-    if(m_robotContainer.m_Joystick.getRawButton(3)){
+    //else{
+    //}else if(m_robotContainer.m_Joystick.getRawButton(7));
+    if(m_robotContainer.m_Joystick.getRawButton(5)){
+      arm.armToPosition(70000);//when button is held arm will extend for cube to be picked up
+    if(m_robotContainer.m_Joystick.getRawButton(6)){
+      arm.armToPosition(70000);//when button is held arm will extend for cube to be picked up
+    }
+    }
+  
+   // }
+    if(m_robotContainer.m_Joystick.getRawButton(10)){
       intake.Pickup();
-    }else if(m_robotContainer.m_Joystick.getRawButton(4)){
-      intake.Drop();
-    }else{  //Need to have a default, if no buttons are held, then the motor stops.
-      intake.intakestop();
     }
-  }
+    else if(m_robotContainer.m_Joystick.getRawButton(9)){
+      intake.Drop();
+    }
+    else{  //Need to have a default, if no buttons are held, then the motor stops.
+      intake.intakestop();
+    
+  }};
   //If the motor controller(TalonSRX/TalonFX) is not set to a new value/speed for a certain amount of time, it will enter a safety mode and disable itself.
   //This is a safety function.
 
