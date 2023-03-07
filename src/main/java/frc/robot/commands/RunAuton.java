@@ -28,7 +28,7 @@ public class RunAuton extends AutoBase{
      */
     public RunAuton(Swerve swerve) {
         super(swerve);
-        PathPlannerTrajectory p0 = PathPlanner.loadPath("test", 6, 3);
+        PathPlannerTrajectory p0 = PathPlanner.loadPath("backToStraight", 6, 3);
         PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
         PathPlannerState initialState = p0.getInitialState();
         // TurnToAngle firstCommand = new TurnToAngle(swerve, 250, false);

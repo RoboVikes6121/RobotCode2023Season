@@ -35,7 +35,7 @@ public class RunAuton extends AutoBase {
     public RunAuton(Swerve swerve) {
         super(swerve);
      //PathPlannerTrajectory p0 = PathPlanner.loadPath("test", 6, 3);
-        PathPlannerTrajectory p0 = PathPlanner.loadPath("turnleft", new PathConstraints(6,3));
+        PathPlannerTrajectory p0 = PathPlanner.loadPath("backLeft", new PathConstraints(6,3));
         PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
         PathPlannerState initialState = p0.getInitialState();
        System.out.println("here is your sample trajectory");

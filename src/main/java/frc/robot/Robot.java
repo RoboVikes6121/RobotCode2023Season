@@ -138,40 +138,42 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("arm encoder", Arm.getEncoderValue()); //Moved to robotPeriodic
 
     //Good practice to avoid the posibility of setting a motor speed multiple times in a single iteration of code.
-    if (m_robotContainer.m_Joystick.getRawButton(16)){
+    if (m_robotContainer.m_operator.getRawButton(11)){
       arm.armRetract();
     }
-    if (m_robotContainer.m_Joystick.getRawButton(15)){
+    if (m_robotContainer.m_operator.getRawButton(12)){
       arm.armStop();
     }
-    if(m_robotContainer.m_Joystick.getRawButton(12)){
+    if(m_robotContainer.m_operator.getRawButton(8)){
       // arm.armExtend();
+      //medium pole 
       arm.armToPosition(53000); //When button is held move arm to 1000 encoder ticks
     }
-    else if(m_robotContainer.m_Joystick.getRawButton(11)){
+    else if(m_robotContainer.m_operator.getRawButton(9)){
       // arm.armRetract();
+      // in all the way
       arm.armToPosition(75); //When button is held move arm to 75 encoder ticks
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
     }
-    else if(m_robotContainer.m_Joystick.getRawButton(13)){
+    else if(m_robotContainer.m_operator.getRawButton(7)){
       // arm.armStop();
-    
+     //high pole
       arm.armToPosition(81000);  //When button is held move arm to 2000 encoder ticks
+    }
+    else if(m_robotContainer.m_operator.getRawButton(10)){
+      // arm.armStop();
+    //floor drop
+      arm.armToPosition(26000); 
     }
     //else{
     //}else if(m_robotContainer.m_Joystick.getRawButton(7));
-    if(m_robotContainer.m_Joystick.getRawButton(5)){
-      arm.armToPosition(69500);//when button is held arm will extend for cube to be picked up
-    if(m_robotContainer.m_Joystick.getRawButton(6)){
-      arm.armToPosition(69500);//when button is held arm will extend for cube to be picked up
-    }
-    }
+    
   
    // }
-    if(m_robotContainer.m_Joystick.getRawButton(10)){
+    if(m_robotContainer.m_operator.getRawButton(3)){
       intake.Pickup();
     }
-    else if(m_robotContainer.m_Joystick.getRawButton(9)){
+    else if(m_robotContainer.m_operator.getRawButton(4)){
       intake.Drop();
     }
     else{  //Need to have a default, if no buttons are held, then the motor stops.
