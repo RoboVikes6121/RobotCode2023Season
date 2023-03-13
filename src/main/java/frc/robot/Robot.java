@@ -88,6 +88,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     swerve.periodic();
     SmartDashboard.putNumber("arm encoder", arm.getEncoderValue()); 
+    SmartDashboard.putNumber("mod 0 encoder value", swerve.mSwerveMods[0].getDriveEncoder() );
     // SmartDashboard.putNumber("mvp", DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND);
     // SmartDashboard.putNumber("speed",SdsModuleConfigurations.MK4I_L2.getDriveReduction());
     // SmartDashboard.putNumber("mav", DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
@@ -138,23 +139,31 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("arm encoder", Arm.getEncoderValue()); //Moved to robotPeriodic
 
     //Good practice to avoid the posibility of setting a motor speed multiple times in a single iteration of code.
-    
-    if(m_robotContainer.m_Joystick.getRawButton(11)){
+    if(m_robotContainer.m_operator.getRawButton(11)){
+      arm.armRetract();
+    }
+    if(m_robotContainer.m_operator.getRawButton(12)){
+      arm.armStop();
+    }
+    if(m_robotContainer.m_operator.getRawButton(8)){
       // arm.armExtend();
-      arm.armToPosition(1000); //When button is held move arm to 1000 encoder ticks
-    }else if(m_robotContainer.m_Joystick.getRawButton(9)){
+      arm.armToPosition(53000); //When button is held move arm to 1000 encoder ticks
+    }else if(m_robotContainer.m_operator.getRawButton(9)){
       // arm.armRetract();
       arm.armToPosition(75); //When button is held move arm to 75 encoder ticks
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
-    }else if(m_robotContainer.m_Joystick.getRawButton(12)){
+    }else if(m_robotContainer.m_operator.getRawButton(7)){
       // arm.armStop();
-      arm.armToPosition(2000);  //When button is held move arm to 2000 encoder ticks
-    }else{
-      arm.writeArm(m_robotContainer.m_Joystick.getRawAxis(1));
+      arm.armToPosition(81000);  //When button is held move arm to 2000 encoder ticks
+    }else if(m_robotContainer.m_operator.getRawButton(10)){
+      arm.armToPosition(26000);
     }
-    if(m_robotContainer.m_Joystick.getRawButton(3)){
+    //else{
+      //arm.writeArm(m_robotContainer.m_operator.getRawAxis(1));
+    //}
+    if(m_robotContainer.m_operator.getRawButton(3)){
       intake.Pickup();
-    }else if(m_robotContainer.m_Joystick.getRawButton(4)){
+    }else if(m_robotContainer.m_operator.getRawButton(4)){
       intake.Drop();
     }else{  //Need to have a default, if no buttons are held, then the motor stops.
       intake.intakestop();

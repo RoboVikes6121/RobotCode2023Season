@@ -18,15 +18,23 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import frc.robot.commands.Feedin;
+import frc.robot.commands.FollowPath;
+import frc.robot.commands.armIn;
+import frc.robot.commands.armout;
 import frc.robot.modules.AutoBase;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 
 /**
  * Autonomous that aligns limelight then executes a trajectory.
  */
 public class RunAuton extends AutoBase {
- //   Swerve swerve;
-
+  Arm arm; 
+  Intake intake;
     /**
      * Autonomous that aligns limelight then executes a trajectory.
      *
@@ -34,20 +42,30 @@ public class RunAuton extends AutoBase {
      */
     public RunAuton(Swerve swerve) {
         super(swerve);
-     //PathPlannerTrajectory p0 = PathPlanner.loadPath("test", 6, 3);
-        PathPlannerTrajectory p0 = PathPlanner.loadPath("test", new PathConstraints(6,3));
+        // taking path off path planner 
+        PathPlannerTrajectory p0 = PathPlanner.loadPath("TurnLeft", new PathConstraints(4,3));
         PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
         PathPlannerState initialState = p0.getInitialState();
        System.out.println("here is your sample trajectory");
-        PathPlannerState examState = (PathPlannerState) p0.sample(1.65);
+        PathPlannerState examState = (PathPlannerState) p0.sample(2.39);
         System.out.println(examState.velocityMetersPerSecond);
+        armout out = new armout(arm);
         // TurnToAngle firstCommand = new TurnToAngle(swerve, 250, false);
-
+      
+       // moving arm out 
+        // SequentialCommandGroup part1 =
+        // new SequentialCommandGroup(firstCommand,(new StartEndCommand(() -> {
+        //     arm.armToPosition(80000);
+        // }, () -> {
+        //     arm.armStop();
+        // })).andThen(new Feedin(intake)));
+       
+       // reseting odometry 
         addCommands(new InstantCommand(() -> swerve.zeroGyro()),
             new InstantCommand(
                 () -> swerve.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(),
                     initialState.holonomicRotation))),
-            firstCommand);
+            firstCommand, out, new Feedin(intake),  new armIn(arm));
 
  }
 }

@@ -17,6 +17,7 @@ import com.playingwithfusion.TimeOfFlight;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 
 /** Add your docs here. */
@@ -64,7 +65,7 @@ public void armStop(){
     arm.set(ControlMode.PercentOutput, 0);
 }
 public void armRetract(){
-    arm.set(ControlMode.PercentOutput, .3);
+    arm.set(ControlMode.PercentOutput, -.3);
 }
 public void writeArm(double y){
     if(y<=.2 && y>=-.2){
@@ -78,13 +79,13 @@ else{
 //while loops will cause everything else on the robot to stop functioning. Loops = bad in this usage case
 public void autoExtend(){
 if(arm.getSelectedSensorPosition() < 1000){ 
-    arm.set(ControlMode.PercentOutput, -.3);
+    arm.set(ControlMode.PercentOutput, -.8);
 }
 arm.set(ControlMode.PercentOutput, 0);
 }
 public void autoRetract(){ 
     if(arm.getSelectedSensorPosition() > 100){ 
-        arm.set(ControlMode.PercentOutput, .3);
+        arm.set(ControlMode.PercentOutput, .8);
     }
     arm.set(ControlMode.PercentOutput, 0);
 }

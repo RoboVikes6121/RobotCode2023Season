@@ -120,4 +120,7 @@ public class SwerveModule {
             getAngle()
         );
     }
+    public double getDriveEncoder(){
+return mDriveMotor.getSelectedSensorPosition();
+}
 }
