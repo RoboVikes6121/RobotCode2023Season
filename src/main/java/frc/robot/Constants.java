@@ -29,8 +29,8 @@ import frc.robot.modules.SwerveModuleConstants;
  */
 
 public final class Constants {
-    public static final double OutTakeSpeed = -.6;
-    public static final double PickupSpeed = .6;
+    public static final double OutTakeSpeed = -.7;
+    public static final double PickupSpeed = .7;
     public static final double stickDeadband = .1;
     public static  Pose2d initialpose;
     /**
@@ -225,7 +225,7 @@ public final class Constants {
         public static final double kArmI = 0;
         public static final double kArmD = 0;
         public static final double kArmIZone = 100;
-        public static final double kArmPeakOutput = 0.3;
+        public static final double kArmPeakOutput = 0.5;
         public static final double kArmAllowedError = 50;
     }
 
