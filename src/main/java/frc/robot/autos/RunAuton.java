@@ -40,8 +40,9 @@ public class RunAuton extends AutoBase {
      *
      * @param swerve swerve subsystem
      */
-    public RunAuton(Swerve swerve) {
+    public RunAuton(Swerve swerve, Arm a) {
         super(swerve);
+        arm = a;
         // taking path off path planner 
         PathPlannerTrajectory p0 = PathPlanner.loadPath("TurnLeft", new PathConstraints(4,3));
         PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
