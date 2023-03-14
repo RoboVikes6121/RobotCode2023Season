@@ -5,32 +5,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 
-public class armout extends CommandBase {
-  /** Creates a new armout. */
-  Arm arm;
-  public armout(Arm a) {
-    arm = a; 
+public class feedout extends CommandBase {
+  Intake intake;
+  /** Creates a new feedout. */
+  public feedout(Intake i) {
+   intake = i;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("armout");
-    arm.armToPosition(50000);
-    //if(arm.getEncoderValue() >= 49000) {
-    //  System.out.println("is done");
-    //  end(true);
-     
-    //}
-    System.out.println("arm");
+    System.out.println("coneout");
+    intake.Drop();
+    System.out.println("feedout");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
   }
 
   // Called once the command ends or is interrupted.
@@ -40,7 +36,7 @@ public class armout extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
+    System.out.println("isFinished with cone on floor");
     return false;
   }
 }

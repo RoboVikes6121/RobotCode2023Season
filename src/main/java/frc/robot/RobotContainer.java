@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 import frc.robot.autos.RunAuton;
 import frc.robot.commands.TeleopSwerve;
@@ -32,7 +34,8 @@ public class RobotContainer {
   //private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   //private final StabilizerController m_StabilizerController = new StabilizerController();
   private final Swerve m_Swerve = new Swerve();
-
+  private final Intake m_Intake = new Intake();
+  private final Arm m_Arm = new Arm();
   public final XboxController m_controller = new XboxController(1);
   public final Joystick m_operator = new Joystick(0);
   public final Joystick m_Joystick = new Joystick(1); 
@@ -106,7 +109,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     // return new InstantCommand();
-    return new RunAuton(m_Swerve);
+    return new RunAuton(m_Swerve, m_Arm, m_Intake);
   }
 
   private static double deadband(double value, double deadband) {

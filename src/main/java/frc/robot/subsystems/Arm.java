@@ -80,6 +80,7 @@ else{
 public void autoExtend(){
 if(arm.getSelectedSensorPosition() < 1000){ 
     arm.set(ControlMode.PercentOutput, -.8);
+
 }
 arm.set(ControlMode.PercentOutput, 0);
 }

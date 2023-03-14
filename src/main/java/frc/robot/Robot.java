@@ -155,7 +155,7 @@ public class Robot extends TimedRobot {
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
     }else if(m_robotContainer.m_operator.getRawButton(7)){
       // arm.armStop();
-      arm.armToPosition(81000);  //When button is held move arm to 2000 encoder ticks
+      arm.armToPosition(83000);  //When button is held move arm to 2000 encoder ticks
     }else if(m_robotContainer.m_operator.getRawButton(10)){
       arm.armToPosition(26000);
     }
@@ -169,13 +169,9 @@ public class Robot extends TimedRobot {
     }else{  //Need to have a default, if no buttons are held, then the motor stops.
       intake.intakestop();
     }
-    if(m_robotContainer.m_operator.getRawButton(4)){
-      intake.Drop();
-    }
-    else{  //Need to have a default, if no buttons are held, then the motor stops.
-      intake.intakestop();
+   
     
-  }};
+  };
   //If the motor controller(TalonSRX/TalonFX) is not set to a new value/speed for a certain amount of time, it will enter a safety mode and disable itself.
   //This is a safety function.
 
