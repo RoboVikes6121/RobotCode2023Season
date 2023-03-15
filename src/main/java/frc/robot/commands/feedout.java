@@ -4,11 +4,14 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
+
 public class feedout extends CommandBase {
   Intake intake;
+  Timer m_timer = new Timer();
   /** Creates a new feedout. */
   public feedout(Intake i) {
    intake = i;
@@ -19,7 +22,9 @@ public class feedout extends CommandBase {
   @Override
   public void initialize() {
     System.out.println("coneout");
+   m_timer.start();
     intake.Drop();
+    
     System.out.println("feedout");
   }
 
@@ -36,7 +41,9 @@ public class feedout extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    System.out.println("isFinished with cone on floor");
+    if(m_timer.get() > .75){
+      return(true);
+    }
     return false;
   }
 }

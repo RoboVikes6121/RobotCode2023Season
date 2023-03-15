@@ -19,7 +19,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
-import frc.robot.autos.RunAuton;
+import frc.robot.autos.Auton11;
+import frc.robot.autos.Auton12;
+import frc.robot.autos.Auton21;
+import frc.robot.autos.Auton22;
 import frc.robot.commands.TeleopSwerve;
 //import frc.robot.subsystems.StabilizerController;
 
@@ -109,7 +112,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     // return new InstantCommand();
-    return new RunAuton(m_Swerve, m_Arm, m_Intake);
+    //return new Auton11(m_Swerve, m_Arm, m_Intake);
+    //return new Auton12(m_Swerve, m_Arm, m_Intake);
+    return new Auton21(m_Swerve, m_Arm, m_Intake);
+    //return new Auton22(m_Swerve, m_Arm, m_Intake);
   }
 
   private static double deadband(double value, double deadband) {

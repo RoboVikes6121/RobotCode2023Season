@@ -3,10 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.autos;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -30,22 +26,13 @@ import frc.robot.modules.AutoBase;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
-import java.util.HashMap;
 
-/**
- * Autonomous that aligns limelight then executes a trajectory.
- */
-public class RunAuton extends AutoBase {
-  Arm arm; 
-  Intake intake;
- // HashMap<String, Command> eventMap = new HashMap<String, Command>();
-    /**
-     * Autonomous that aligns limelight then executes a trajectory.
-     *
-     * @param swerve swerve subsystem
-     */
-    public RunAuton(Swerve swerve, Arm a, Intake i) {
-        super(swerve);
+/** Add your docs here. */
+public class Auton21 extends AutoBase {
+    Arm arm; 
+    Intake intake;
+    public Auton21(Swerve swerve, Arm a, Intake i){
+    super(swerve);
         arm = a;
         intake = i;
         armout out = new armout(arm);
@@ -55,41 +42,17 @@ public class RunAuton extends AutoBase {
         
         //eventMap.put("arm out", new SequentialCommandGroup(out, feedout, new ParallelCommandGroup(in)));
         // taking path off path planner 
-        PathPlannerTrajectory p0 = PathPlanner.loadPath("TurnLeft", new PathConstraints(4,3));
+        PathPlannerTrajectory p0 = PathPlanner.loadPath("21", new PathConstraints(4,3));
         PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
         PathPlannerState initialState = p0.getInitialState();
        System.out.println("here is your sample trajectory");
         PathPlannerState examState = (PathPlannerState) p0.sample(2.39);
         System.out.println(examState.velocityMetersPerSecond);
         
-       
-        //new Feedin(intake),  
-        //new armIn(arm)
-        // TurnToAngle firstCommand = new TurnToAngle(swerve, 250, false);
-      
-       // moving arm out 
-        // SequentialCommandGroup part1 =
-        // new SequentialCommandGroup(firstCommand,(new StartEndCommand(() -> {
-        //     arm.armToPosition(80000);
-        // }, () -> {
-        //     arm.armStop();
-        // })).andThen(new Feedin(intake)));
-       
-       // adding a commend to put the arm out 
 
 
-       addCommands(new SequentialCommandGroup(feedout,feedin, out));
-       /* 
-       addCommands(new InstantCommand(() -> swerve.zeroGyro()),
-            new InstantCommand(
-                () -> swerve.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(),
-                    initialState.holonomicRotation))),new ParallelCommandGroup(out, feedout));
-            addCommands(new InstantCommand(() -> swerve.zeroGyro()),
-            new InstantCommand(
-                () -> swerve.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(),
-                    initialState.holonomicRotation))),
-            in);
-            
+       addCommands(new SequentialCommandGroup(out,feedin,in));
+
             
             addCommands(new InstantCommand(() -> swerve.zeroGyro()),
             new InstantCommand(
@@ -97,6 +60,6 @@ public class RunAuton extends AutoBase {
                     initialState.holonomicRotation))),
             firstCommand);
             
-*/
+    }
  }
-}
+
