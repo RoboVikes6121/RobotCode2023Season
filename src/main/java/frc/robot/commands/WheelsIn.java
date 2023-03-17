@@ -4,34 +4,28 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm;
+import com.swervedrivespecialties.swervelib.SwerveModule;
 
-public class armout extends CommandBase {
-  /** Creates a new armout. */
-  Arm arm;
-  Timer m_timer = new Timer();
-  public armout(Arm a) {
-    arm = a; 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.Swerve;
+
+public class WheelsIn extends CommandBase {
+  Swerve swerve;
+  /** Creates a new WheelsIn. */
+  public WheelsIn(Swerve s) {
+    swerve = s;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("armout");
-    m_timer.start();
-    arm.armToPosition(83000);
-   
-
-    System.out.println("arm");
+    //swerve.SwerveModule[0].setAngle();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -40,8 +34,6 @@ public class armout extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(arm.getEncoderValue() >= 82000 || m_timer.get() > 3){
-    return(true);}
     return false;
   }
 }

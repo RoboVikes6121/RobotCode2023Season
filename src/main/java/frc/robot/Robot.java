@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.sensors.CANCoder;
+import com.playingwithfusion.TimeOfFlight;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -44,6 +45,7 @@ public class Robot extends TimedRobot {
   public Swerve swerve = new Swerve();
   public Arm arm = new Arm();
   public Intake intake = new Intake();
+  public TimeOfFlight timeOfFlight = new TimeOfFlight(14);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -148,15 +150,15 @@ public class Robot extends TimedRobot {
     if(m_robotContainer.m_operator.getRawButton(8)){
       // arm.armExtend();
       arm.armToPosition(53000); //When button is held move arm to 1000 encoder ticks
-    }else if(m_robotContainer.m_operator.getRawButton(9)){
+    }else if(m_robotContainer.m_operator.getRawButton(10)){
       // arm.armRetract();
       // in all the way
       arm.armToPosition(75); //When button is held move arm to 75 encoder ticks
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
     }else if(m_robotContainer.m_operator.getRawButton(7)){
       // arm.armStop();
-      arm.armToPosition(83000);  //When button is held move arm to 2000 encoder ticks
-    }else if(m_robotContainer.m_operator.getRawButton(10)){
+      arm.armToPosition(85000);  //When button is held move arm to 2000 encoder ticks
+    }else if(m_robotContainer.m_operator.getRawButton(9)){
       arm.armToPosition(26000);
     }
     //else{
@@ -172,6 +174,12 @@ public class Robot extends TimedRobot {
    
     
   };
+  public void TimeOfFlight(){
+      if (timeOfFlight.getRange() < 80) {
+        arm.armStop();
+      }
+    }
+  
   //If the motor controller(TalonSRX/TalonFX) is not set to a new value/speed for a certain amount of time, it will enter a safety mode and disable itself.
   //This is a safety function.
 

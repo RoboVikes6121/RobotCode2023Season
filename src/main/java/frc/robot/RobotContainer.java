@@ -113,9 +113,9 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     // return new InstantCommand();
     //return new Auton11(m_Swerve, m_Arm, m_Intake);
-    //return new Auton12(m_Swerve, m_Arm, m_Intake);
-    return new Auton21(m_Swerve, m_Arm, m_Intake);
-    //return new Auton22(m_Swerve, m_Arm, m_Intake);
+   // return new Auton12(m_Swerve, m_Arm, m_Intake);
+    //return new Auton21(m_Swerve, m_Arm, m_Intake);
+    return new Auton22(m_Swerve, m_Arm, m_Intake);
   }
 
   private static double deadband(double value, double deadband) {
