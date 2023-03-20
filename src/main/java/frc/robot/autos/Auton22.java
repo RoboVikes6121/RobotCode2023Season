@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.commands.Feedin;
 import frc.robot.commands.FollowPath;
+import frc.robot.commands.WheelsIn;
 import frc.robot.commands.armIn;
 import frc.robot.commands.armout;
 import frc.robot.commands.feedout;
@@ -31,6 +32,7 @@ import frc.robot.subsystems.Swerve;
 public class Auton22 extends AutoBase  {
     Arm arm; 
     Intake intake;
+    Swerve Swerve;
     public Auton22(Swerve swerve, Arm a, Intake i){
     super(swerve);
         arm = a;
@@ -39,6 +41,7 @@ public class Auton22 extends AutoBase  {
         feedout feedout = new feedout(intake);
         armIn in = new armIn(arm);
         Feedin feedin = new Feedin(intake);
+        WheelsIn wheelsIn = new WheelsIn(swerve);
         
         //eventMap.put("arm out", new SequentialCommandGroup(out, feedout, new ParallelCommandGroup(in)));
         // taking path off path planner 
@@ -59,6 +62,7 @@ public class Auton22 extends AutoBase  {
                 () -> swerve.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(),
                     initialState.holonomicRotation))),
             firstCommand);
-            
+    addCommands(new SequentialCommandGroup(wheelsIn));  
     }
+
 }

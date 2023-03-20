@@ -3,6 +3,8 @@
 
 package frc.robot;
 
+import java.nio.file.FileAlreadyExistsException;
+
 //import org.apache.commons.exec.ShutdownHookProcessDestroyer;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -33,7 +35,8 @@ public final class Constants {
     public static final double PickupSpeed = .7;
     public static final double stickDeadband = .1;
     public static  Pose2d initialpose;
-
+    //public static double maxSpeedMultiplier = 1;
+    //public static final kDriveTick2Feet = 
     /**
      * The left-to-right distance between the drivetrain wheels
      *
@@ -84,7 +87,7 @@ public final class Constants {
         public static final double wheelCircumference = wheelDiameter * Math.PI;
 
         public static final boolean isFieldRelative = true;
-        public static final boolean isOpenLoop = false;
+        public static final boolean isOpenLoop = true;
 
         public static final double openLoopRamp = 3;
         public static final double closedLoopRamp = 3;
@@ -115,12 +118,13 @@ public final class Constants {
         public static final double driveKA = (0.27 / 12);
 
         /* Swerve Profiling Values */
-        public static final double maxSpeed = 1; // meter per second went from 4 to 1
+        public static final double maxSpeed = 3; // meter per second went from 4 to 1
+        
         public static final double maxAngularVelocity = 5;
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
-        public static final NeutralMode driveNeutralMode = NeutralMode.Coast;
+        public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
 
         public static final COTSFalconSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
             COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);

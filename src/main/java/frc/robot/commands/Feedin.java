@@ -37,7 +37,7 @@ public class Feedin extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_timer.get() > .75){
+    if(m_timer.get() > 1){
       return(true);}
     return false;
   }

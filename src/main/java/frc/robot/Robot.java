@@ -42,9 +42,11 @@ public class Robot extends TimedRobot {
   // Joystick operator = new Joystick(1);
   public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
+  private Swerve m_Swerve;
   public Swerve swerve = new Swerve();
   public Arm arm = new Arm();
   public Intake intake = new Intake();
+
   public TimeOfFlight timeOfFlight = new TimeOfFlight(14);
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -62,6 +64,8 @@ public class Robot extends TimedRobot {
      camera1 = CameraServer.startAutomaticCapture(0);
      camera2 = CameraServer.startAutomaticCapture(1);
     // camera3 = CameraServer.startAutomaticCapture(2);
+    camera1.setResolution(512, 1024);
+    camera2.setResolution(512, 1024);
     // camera4 = CameraServer.startAutomaticCapture(3); 
 
     try{
@@ -141,6 +145,10 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("arm encoder", Arm.getEncoderValue()); //Moved to robotPeriodic
 
     //Good practice to avoid the posibility of setting a motor speed multiple times in a single iteration of code.
+    
+    if(m_robotContainer.m_Joystick.getRawButton(10)){
+      swerve.setX();
+    }
     if(m_robotContainer.m_operator.getRawButton(11)){
       arm.armRetract();
     }
@@ -157,7 +165,7 @@ public class Robot extends TimedRobot {
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
     }else if(m_robotContainer.m_operator.getRawButton(7)){
       // arm.armStop();
-      arm.armToPosition(85000);  //When button is held move arm to 2000 encoder ticks
+      arm.armToPosition(86500);  //When button is held move arm to 2000 encoder ticks
     }else if(m_robotContainer.m_operator.getRawButton(9)){
       arm.armToPosition(26000);
     }

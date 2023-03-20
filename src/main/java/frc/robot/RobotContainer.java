@@ -18,9 +18,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.StabilizerController;
 import frc.robot.subsystems.Swerve;
-import frc.robot.autos.Auton11;
 import frc.robot.autos.Auton12;
+import frc.robot.autos.Auton13;
+import frc.robot.autos.Auton11;
 import frc.robot.autos.Auton21;
 import frc.robot.autos.Auton22;
 import frc.robot.commands.TeleopSwerve;
@@ -39,6 +41,7 @@ public class RobotContainer {
   private final Swerve m_Swerve = new Swerve();
   private final Intake m_Intake = new Intake();
   private final Arm m_Arm = new Arm();
+  private final StabilizerController m_StabilizerController = new StabilizerController();
   public final XboxController m_controller = new XboxController(1);
   public final Joystick m_operator = new Joystick(0);
   public final Joystick m_Joystick = new Joystick(1); 
@@ -48,8 +51,8 @@ public class RobotContainer {
   private final int rotationAxis = Joystick.AxisType.kZ.value;
 
   /* Driver Buttons */
-  private final JoystickButton zeroGyro = new JoystickButton(m_Joystick, Joystick.ButtonType.kTop.value);
-  private final JoystickButton robotCentric = new JoystickButton(m_Joystick, Joystick.ButtonType.kTrigger.value);
+  private final JoystickButton zeroGyro = new JoystickButton(m_Joystick, Joystick.ButtonType.kTrigger.value);
+  private final JoystickButton robotCentric = new JoystickButton(m_Joystick, Joystick.ButtonType.kTop.value);
 
     // private final Joystick m_joystick = new Joystick(0);
     // private final Joystick m_joystick2 = new Joystick(1);
@@ -73,14 +76,16 @@ public class RobotContainer {
           () -> robotCentric.getAsBoolean()
       )
   );
-    /*while(m_controller.getBButton()){
-      m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
-      m_drivetrainSubsystem,
+    while(m_Joystick.getRawButton(16)){
+      m_Swerve.setDefaultCommand(new TeleopSwerve(
+      m_Swerve,
       () -> -modifyAxis(m_StabilizerController.stabX() * .2),
       () -> -modifyAxis(m_StabilizerController.stabY() * .2),
-      () -> -modifyAxis(m_controller.getRightX() * (.2 * Math.PI))
-    ));
-    }*/
+      () -> -modifyAxis(m_controller.getRightX() * (.2 * Math.PI)),
+      () -> robotCentric.getAsBoolean()
+      )
+    );
+    }
 
   SmartDashboard.putNumber("lx", m_controller.getLeftX() );
     // Configure the button bindings
@@ -112,10 +117,11 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     // return new InstantCommand();
-    //return new Auton11(m_Swerve, m_Arm, m_Intake);
+    return new Auton11(m_Swerve, m_Arm, m_Intake );
    // return new Auton12(m_Swerve, m_Arm, m_Intake);
-    //return new Auton21(m_Swerve, m_Arm, m_Intake);
-    return new Auton22(m_Swerve, m_Arm, m_Intake);
+     // return new Auton13(m_Swerve, m_Arm, m_Intake);
+   // return new Auton21(m_Swerve, m_Arm, m_Intake);
+    //return new Auton22(m_Swerve, m_Arm, m_Intake);
   }
 
   private static double deadband(double value, double deadband) {

@@ -22,7 +22,7 @@ public class armout extends CommandBase {
   public void initialize() {
     System.out.println("armout");
     m_timer.start();
-    arm.armToPosition(83000);
+    arm.armToPosition(84000);
    
 
     System.out.println("arm");
@@ -40,7 +40,7 @@ public class armout extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(arm.getEncoderValue() >= 82000 || m_timer.get() > 3){
+    if(arm.getEncoderValue() >= 83000 || m_timer.get() > 3){
     return(true);}
     return false;
   }

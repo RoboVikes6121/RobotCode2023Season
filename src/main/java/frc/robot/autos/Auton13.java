@@ -35,7 +35,7 @@ import java.util.HashMap;
 /**
  * Autonomous that aligns limelight then executes a trajectory.
  */
-public class Auton1 extends AutoBase {
+public class Auton13 extends AutoBase {
   Arm arm; 
   Intake intake;
  // HashMap<String, Command> eventMap = new HashMap<String, Command>();
@@ -44,7 +44,7 @@ public class Auton1 extends AutoBase {
      *
      * @param swerve swerve subsystem
      */
-    public Auton1(Swerve swerve, Arm a, Intake i) {
+    public Auton13(Swerve swerve, Arm a, Intake i) {
         super(swerve);
         arm = a;
         intake = i;
@@ -55,7 +55,7 @@ public class Auton1 extends AutoBase {
         
         //eventMap.put("arm out", new SequentialCommandGroup(out, feedout, new ParallelCommandGroup(in)));
         // taking path off path planner 
-        PathPlannerTrajectory p0 = PathPlanner.loadPath("1", new PathConstraints(4,3));
+        PathPlannerTrajectory p0 = PathPlanner.loadPath("13", new PathConstraints(4,3));
         PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
         PathPlannerState initialState = p0.getInitialState();
        System.out.println("here is your sample trajectory");

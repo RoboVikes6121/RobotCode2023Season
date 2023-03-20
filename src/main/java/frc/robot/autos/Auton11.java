@@ -2,6 +2,11 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 package frc.robot.autos;
 
 import java.util.ArrayList;
@@ -23,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.commands.Feedin;
 import frc.robot.commands.FollowPath;
+import frc.robot.commands.WheelsIn;
 import frc.robot.commands.armIn;
 import frc.robot.commands.armout;
 import frc.robot.commands.feedout;
@@ -38,6 +44,7 @@ import java.util.HashMap;
 public class Auton11 extends AutoBase {
   Arm arm; 
   Intake intake;
+  Swerve Swerve;
  // HashMap<String, Command> eventMap = new HashMap<String, Command>();
     /**
      * Autonomous that aligns limelight then executes a trajectory.
@@ -52,6 +59,7 @@ public class Auton11 extends AutoBase {
         feedout feedout = new feedout(intake);
         armIn in = new armIn(arm);
         Feedin feedin = new Feedin(intake);
+        WheelsIn wheelsIn = new WheelsIn(Swerve);
         
         //eventMap.put("arm out", new SequentialCommandGroup(out, feedout, new ParallelCommandGroup(in)));
         // taking path off path planner 
@@ -72,7 +80,7 @@ public class Auton11 extends AutoBase {
                 () -> swerve.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(),
                     initialState.holonomicRotation))),
             firstCommand);
-            
+            //addCommands(new SequentialCommandGroup(wheelsIn));
 
  }
  
