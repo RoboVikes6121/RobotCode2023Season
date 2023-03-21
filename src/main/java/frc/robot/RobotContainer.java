@@ -51,7 +51,7 @@ public class RobotContainer {
   private final int rotationAxis = Joystick.AxisType.kZ.value;
 
   /* Driver Buttons */
-  private final JoystickButton zeroGyro = new JoystickButton(m_Joystick, Joystick.ButtonType.kTrigger.value);
+  //private final JoystickButton zeroGyro = new JoystickButton(m_Joystick, Joystick.ButtonType.kTrigger.value);
   private final JoystickButton robotCentric = new JoystickButton(m_Joystick, Joystick.ButtonType.kTop.value);
 
     // private final Joystick m_joystick = new Joystick(0);
@@ -105,7 +105,7 @@ public class RobotContainer {
   //           .whenPressed(m_Swerve::reset);
 
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> m_Swerve.zeroGyro()));
+       // zeroGyro.onTrue(new InstantCommand(() -> m_Swerve.zeroGyro()));
     
   }
 
@@ -117,11 +117,11 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     // return new InstantCommand();
-    return new Auton11(m_Swerve, m_Arm, m_Intake );
+    //return new Auton11(m_Swerve, m_Arm, m_Intake );
    // return new Auton12(m_Swerve, m_Arm, m_Intake);
      // return new Auton13(m_Swerve, m_Arm, m_Intake);
    // return new Auton21(m_Swerve, m_Arm, m_Intake);
-    //return new Auton22(m_Swerve, m_Arm, m_Intake);
+    return new Auton22(m_Swerve, m_Arm, m_Intake);
   }
 
   private static double deadband(double value, double deadband) {

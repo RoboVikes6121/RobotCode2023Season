@@ -45,7 +45,7 @@ public class Auton22 extends AutoBase  {
         
         //eventMap.put("arm out", new SequentialCommandGroup(out, feedout, new ParallelCommandGroup(in)));
         // taking path off path planner 
-        PathPlannerTrajectory p0 = PathPlanner.loadPath("22", new PathConstraints(4,3));
+        PathPlannerTrajectory p0 = PathPlanner.loadPath("22", new PathConstraints(1,2.5));
         PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
         PathPlannerState initialState = p0.getInitialState();
        System.out.println("here is your sample trajectory");
@@ -62,7 +62,7 @@ public class Auton22 extends AutoBase  {
                 () -> swerve.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(),
                     initialState.holonomicRotation))),
             firstCommand);
-    addCommands(new SequentialCommandGroup(wheelsIn));  
+   // addCommands(new SequentialCommandGroup(wheelsIn));  
     }
 
 }

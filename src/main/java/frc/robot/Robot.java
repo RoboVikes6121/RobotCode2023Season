@@ -64,8 +64,8 @@ public class Robot extends TimedRobot {
      camera1 = CameraServer.startAutomaticCapture(0);
      camera2 = CameraServer.startAutomaticCapture(1);
     // camera3 = CameraServer.startAutomaticCapture(2);
-    camera1.setResolution(512, 1024);
-    camera2.setResolution(512, 1024);
+   // camera1.setResolution(512, 1024);
+   // camera2.setResolution(512, 1024);
     // camera4 = CameraServer.startAutomaticCapture(3); 
 
     try{
@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     swerve.periodic();
+    SmartDashboard.putNumber("prox", timeOfFlight.getRange());
     SmartDashboard.putNumber("arm encoder", arm.getEncoderValue()); 
     SmartDashboard.putNumber("mod 0 encoder value", swerve.mSwerveMods[0].getDriveEncoder() );
     // SmartDashboard.putNumber("mvp", DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND);
@@ -165,7 +166,7 @@ public class Robot extends TimedRobot {
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
     }else if(m_robotContainer.m_operator.getRawButton(7)){
       // arm.armStop();
-      arm.armToPosition(86500);  //When button is held move arm to 2000 encoder ticks
+      arm.armToPosition(87500);  //When button is held move arm to 2000 encoder ticks
     }else if(m_robotContainer.m_operator.getRawButton(9)){
       arm.armToPosition(26000);
     }
@@ -183,7 +184,7 @@ public class Robot extends TimedRobot {
     
   };
   public void TimeOfFlight(){
-      if (timeOfFlight.getRange() < 80) {
+      if (timeOfFlight.getRange() < 40) {
         arm.armStop();
       }
     }
