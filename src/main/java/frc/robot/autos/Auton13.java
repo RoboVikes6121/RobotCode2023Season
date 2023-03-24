@@ -55,7 +55,7 @@ public class Auton13 extends AutoBase {
         
         //eventMap.put("arm out", new SequentialCommandGroup(out, feedout, new ParallelCommandGroup(in)));
         // taking path off path planner 
-        PathPlannerTrajectory p0 = PathPlanner.loadPath("13", new PathConstraints(4,3));
+        PathPlannerTrajectory p0 = PathPlanner.loadPath("13", new PathConstraints(1.5,3));
         PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
         PathPlannerState initialState = p0.getInitialState();
        System.out.println("here is your sample trajectory");

@@ -40,7 +40,7 @@ public class armout extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(arm.getEncoderValue() >= 83000 || m_timer.get() > 3){
+    if(arm.getEncoderValue() >= 83000 || m_timer.get() > 2){
     return(true);}
     return false;
   }

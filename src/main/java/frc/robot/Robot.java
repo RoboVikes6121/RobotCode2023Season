@@ -11,6 +11,7 @@ import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -64,8 +65,13 @@ public class Robot extends TimedRobot {
      camera1 = CameraServer.startAutomaticCapture(0);
      camera2 = CameraServer.startAutomaticCapture(1);
     // camera3 = CameraServer.startAutomaticCapture(2);
-   // camera1.setResolution(512, 1024);
-   // camera2.setResolution(512, 1024);
+    camera1.setResolution(480, 600);
+    camera2.setResolution(480, 600);
+    camera1.setFPS(10);
+    camera2.setFPS(10);
+
+    camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
     // camera4 = CameraServer.startAutomaticCapture(3); 
 
     try{

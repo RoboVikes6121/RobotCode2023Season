@@ -45,7 +45,7 @@ public class Auton22 extends AutoBase  {
         
         //eventMap.put("arm out", new SequentialCommandGroup(out, feedout, new ParallelCommandGroup(in)));
         // taking path off path planner 
-        PathPlannerTrajectory p0 = PathPlanner.loadPath("22", new PathConstraints(1,2.5));
+        PathPlannerTrajectory p0 = PathPlanner.loadPath("22", new PathConstraints(1,3));
         PPSwerveControllerCommand firstCommand = baseSwerveCommand(p0);
         PathPlannerState initialState = p0.getInitialState();
        System.out.println("here is your sample trajectory");
