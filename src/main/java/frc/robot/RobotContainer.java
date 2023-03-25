@@ -42,7 +42,7 @@ public class RobotContainer {
   private final Intake m_Intake = new Intake();
   private final Arm m_Arm = new Arm();
   private final StabilizerController m_StabilizerController = new StabilizerController();
-  public final XboxController m_controller = new XboxController(1);
+  //public final XboxController m_controller = new XboxController(1);
   public final Joystick m_operator = new Joystick(0);
   public final Joystick m_Joystick = new Joystick(1); 
   /* Drive Controls */
@@ -75,9 +75,9 @@ public class RobotContainer {
           () -> -m_Joystick.getRawAxis(rotationAxis), 
           () -> robotCentric.getAsBoolean()
       )
-  );
-    while(m_Joystick.getRawButton(16)){
-      m_Swerve.setDefaultCommand(new TeleopSwerve(
+  );}
+   // while(m_Joystick.getRawButton(16)){
+    /*  m_Swerve.setDefaultCommand(new TeleopSwerve(
       m_Swerve,
       () -> -modifyAxis(m_StabilizerController.stabX() * .2),
       () -> -modifyAxis(m_StabilizerController.stabY() * .2),
@@ -85,12 +85,12 @@ public class RobotContainer {
       () -> robotCentric.getAsBoolean()
       )
     );
-    }
+    }*/
 
-  SmartDashboard.putNumber("lx", m_controller.getLeftX() );
+ // SmartDashboard.putNumber("lx", m_controller.getLeftX() );
     // Configure the button bindings
-    configureButtonBindings();
-  }
+    //configureButtonBindings();
+  //}
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -117,10 +117,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     // return new InstantCommand();
-    return new Auton11(m_Swerve, m_Arm, m_Intake );
+    //return new Auton11(m_Swerve, m_Arm, m_Intake );
    // return new Auton12(m_Swerve, m_Arm, m_Intake);
      // return new Auton13(m_Swerve, m_Arm, m_Intake);
-   // return new Auton21(m_Swerve, m_Arm, m_Intake);
+    return new Auton21(m_Swerve, m_Arm, m_Intake);
    //return new Auton22(m_Swerve, m_Arm, m_Intake);
   }
 
