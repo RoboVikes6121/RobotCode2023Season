@@ -69,7 +69,7 @@ public final class Constants {
     // public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 5; // FIXME Set back right steer motor ID
     // public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 10; // FIXME Set back right steer encoder ID
     // public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(58.3); // FIXME Measure and set back right steer offset
-    public static final int proxSensor = 0;
+    //public static final double TimeOfFlight = 14;
     public static final class Swerve{
         public static final edu.wpi.first.wpilibj.SPI.Port navXID =
             edu.wpi.first.wpilibj.SPI.Port.kMXP;
@@ -227,6 +227,10 @@ public final class Constants {
         public static final double kArmIZone = 100;
         public static final double kArmPeakOutput = 0.5;
         public static final double kArmAllowedError = 50;
+    }
+
+    public static boolean TimeOfFlight(int i) {
+        return false;
     }
 
 } // ends class constants

@@ -106,7 +106,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     // return new InstantCommand();
-    return new RunAuton(m_Swerve);
+    return new RunAuton(m_Swerve, null);
   }
 
   private static double deadband(double value, double deadband) {

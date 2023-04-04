@@ -178,7 +178,11 @@ public class Robot extends TimedRobot {
   }};
   //If the motor controller(TalonSRX/TalonFX) is not set to a new value/speed for a certain amount of time, it will enter a safety mode and disable itself.
   //This is a safety function.
-
+  public void setMotorSpeed(double speed){
+    if (speed > 0){
+      if (Constants.TimeOfFlight(14));
+    }
+  }
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.

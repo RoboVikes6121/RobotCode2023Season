@@ -25,7 +25,7 @@ public class Arm {
     TalonFX arm = new TalonFX(8);
     TalonFXConfiguration armConfiguration = new TalonFXConfiguration();
    
-TimeOfFlight proximitySensor = new TimeOfFlight(Constants.proxSensor); // the sensor we will use to check arm extension
+//TimeOfFlight proximitySensor = new TimeOfFlight(Constants.proxSensor); // the sensor we will use to check arm extension
     
 public void armInit(){
         //PID Initiliziation
@@ -60,6 +60,7 @@ public double getEncoderValue(){
 public void armExtend(){
     arm.set(ControlMode.PercentOutput, -.3);
    // SmartDashboard.putNumber("Encoder", arm.getActiveTrajectoryPositio );
+
 }
 public void armStop(){
     arm.set(ControlMode.PercentOutput, 0);
@@ -89,7 +90,6 @@ public void autoRetract(){
     }
     arm.set(ControlMode.PercentOutput, 0);
 }
-
 public void armToPosition(int positionRequest){
     arm.set(TalonFXControlMode.Position, positionRequest, DemandType.ArbitraryFeedForward, 0);
 }
