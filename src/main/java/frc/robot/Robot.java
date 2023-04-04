@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.sensors.CANCoder;
+import com.kauailabs.navx.frc.AHRS;
 import com.playingwithfusion.TimeOfFlight;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
@@ -24,8 +25,10 @@ import frc.robot.modules.CTREConfigs;
 import frc.robot.subsystems.Arm;
 //import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.StabilizerController;
 import frc.robot.subsystems.Swerve;
 import pabeles.concurrency.ConcurrencyOps.Reset;
+import edu.wpi.first.wpilibj.SPI;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -41,14 +44,16 @@ public class Robot extends TimedRobot {
   Timer m_timer = new Timer();
   private Command m_autonomousCommand;
   // Joystick operator = new Joystick(1);
+  private static AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200);
   public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
   private Swerve m_Swerve;
   public Swerve swerve = new Swerve();
   public Arm arm = new Arm();
   public Intake intake = new Intake();
-
+  public StabilizerController stabilizerController = new StabilizerController();
   public TimeOfFlight timeOfFlight = new TimeOfFlight(14);
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -102,6 +107,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("prox", timeOfFlight.getRange());
     SmartDashboard.putNumber("arm encoder", arm.getEncoderValue()); 
     SmartDashboard.putNumber("mod 0 encoder value", swerve.mSwerveMods[0].getDriveEncoder() );
+    SmartDashboard.putNumber("kArmP", Constants.ArmConstants.kArmP);
+    SmartDashboard.putNumber("kArmI", Constants.ArmConstants.kArmI);
+    SmartDashboard.putNumber("kArmD", Constants.ArmConstants.kArmD);
+    SmartDashboard.putNumber("GyroYAW", m_navx.getYaw());
+    SmartDashboard.putNumber("GyroPitch", m_navx.getPitch());
+    SmartDashboard.putNumber("GyroRoll", m_navx.getRoll());
+    
     // SmartDashboard.putNumber("mvp", DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND);
     // SmartDashboard.putNumber("speed",SdsModuleConfigurations.MK4I_L2.getDriveReduction());
     // SmartDashboard.putNumber("mav", DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
@@ -168,11 +180,11 @@ public class Robot extends TimedRobot {
     }else if(m_robotContainer.m_operator.getRawButton(10)){
       // arm.armRetract();
       // in all the way
-      arm.armToPosition(75); //When button is held move arm to 75 encoder ticks
+      arm.armToPosition(250); //When button is held move arm to 75 encoder ticks
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
     }else if(m_robotContainer.m_operator.getRawButton(7)){
       // arm.armStop();
-      arm.armToPosition(87500);  //When button is held move arm to 2000 encoder ticks
+      arm.armToPosition(88000);  //When button is held move arm to 2000 encoder ticks
     }else if(m_robotContainer.m_operator.getRawButton(9)){
       arm.armToPosition(26000);
     }
@@ -186,7 +198,9 @@ public class Robot extends TimedRobot {
     }else{  //Need to have a default, if no buttons are held, then the motor stops.
       intake.intakestop();
     }
-   
+   if(m_robotContainer.m_Joystick.getRawButton(5)){
+    stabilizerController.stabY(); //balance method to a button 
+   }
     
   };
   public void TimeOfFlight(){

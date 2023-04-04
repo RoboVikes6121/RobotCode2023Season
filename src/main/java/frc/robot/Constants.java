@@ -226,12 +226,13 @@ public final class Constants {
     } // end auto constants
 
     public static final class ArmConstants {
-        public static final double kArmP = 0.1;
-        public static final double kArmI = 0;
-        public static final double kArmD = 0;
+        public static final double kArmP = 0.5;
+        public static final double kArmI = 0.2;
+        public static final double kArmD = 0.2;
         public static final double kArmIZone = 100;
         public static final double kArmPeakOutput = 0.5;
         public static final double kArmAllowedError = 50;
     }
-
+        //SmartDashboard.putNumber("kArmP", kArmP);
+        //SmartDashboard.putNumber(kArmP,"");
 } // ends class constants
