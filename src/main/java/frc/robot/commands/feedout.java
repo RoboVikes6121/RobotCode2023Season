@@ -6,22 +6,26 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 
-public class armIn extends CommandBase {
-  /** Creates a new armIn. */
-  Arm arm;
+
+public class feedout extends CommandBase {
+  Intake intake;
   Timer m_timer = new Timer();
-  public armIn(Arm a) {
-    arm = a;
-
+  /** Creates a new feedout. */
+  public feedout(Intake i) {
+   intake = i;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    arm.armToPosition(0);
+    System.out.println("coneout");
+   m_timer.start();
+    intake.Drop();
+    
+    System.out.println("feedout");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -32,15 +36,14 @@ public class armIn extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-   
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(arm.getEncoderValue() >= -100){
-      return(true);}
+    if(m_timer.get() > .75){
+      return(true);
+    }
     return false;
   }
 }

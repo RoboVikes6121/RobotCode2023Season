@@ -8,7 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
 /** Add your docs here. */
-/*public class StabilizerController {
+public class StabilizerController {
     private boolean autoBalanceXMode;
     private boolean autoBalanceYMode;
     private double kOffBalanceThresholdDegrees = 10;
@@ -50,4 +50,4 @@ import edu.wpi.first.wpilibj.SPI;
             return(0);
         }
     }
-}*/
+}
