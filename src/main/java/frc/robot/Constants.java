@@ -3,12 +3,12 @@
 
 package frc.robot;
 
-import java.nio.file.FileAlreadyExistsException;
+//import java.nio.file.FileAlreadyExistsException;
 
 //import org.apache.commons.exec.ShutdownHookProcessDestroyer;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.playingwithfusion.TimeOfFlight;
+//import com.playingwithfusion.TimeOfFlight;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -16,8 +16,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.TeleopSwerve;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import frc.robot.commands.TeleopSwerve;
 import frc.robot.modules.COTSFalconSwerveConstants;
 import frc.robot.modules.SwerveModuleConstants;
 
@@ -35,44 +35,8 @@ public final class Constants {
     public static final double PickupSpeed = .7;
     public static final double stickDeadband = .1;
     public static  Pose2d initialpose;
-    //public static double maxSpeedMultiplier = 1;
-    //public static final kDriveTick2Feet = 
-    /**
-     * The left-to-right distance between the drivetrain wheels
-     *
-     * Should be measured from center to center.
-     */
-    // public static final double DRIVETRAIN_TRACKWIDTH_METERS = .6; // FIXME Measure and set trackwidth
-    // /**
-    //  * The front-to-back distance between the drivetrain wheels.
-    //  *
-    //  * Should be measured from center to center.
-    //  */
-    // public static final double DRIVETRAIN_WHEELBASE_METERS = .6; // FIXME Measure and set wheelbase
-    
-    // //public static final int DRIVETRAIN_PIGEON_ID = 22; //  FIXME Set Pigeon ID
-    // public static final double MAX_SPEED_MOD = .26;
     
 
-    // public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 7; // FIXME Set front left module drive motor ID
-    // public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 6; // FIXME Set front left module steer motor ID
-    // public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 13; // FIXME Set front left steer encoder ID
-    // public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(307.8); // FIXME Measure and set front left steer offset
-
-    // public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 4; // FIXME Set front right drive motor ID
-    // public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 2; // FIXME Set front right steer motor ID
-    // public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 12; // FIXME Set front right steer encoder ID
-    // public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(152.6); // FIXME Measure and set front right steer offset
-
-    // public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 0; // FIXME Set back left drive motor ID
-    // public static final int BACK_LEFT_MODULE_STEER_MOTOR = 3; // FIXME Set back left steer motor ID
-    // public static final int BACK_LEFT_MODULE_STEER_ENCODER = 11; // FIXME Set back left steer encoder ID
-    // public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(242.75); // FIXME Measure and set back left steer offset
-
-    // public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 1; // FIXME Set back right drive motor ID
-    // public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 5; // FIXME Set back right steer motor ID
-    // public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 10; // FIXME Set back right steer encoder ID
-    // public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(58.3); // FIXME Measure and set back right steer offset
     public static final int proxSensor = 0;
     public static final class Swerve{
         public static final edu.wpi.first.wpilibj.SPI.Port navXID =
@@ -233,6 +197,5 @@ public final class Constants {
         public static final double kArmPeakOutput = 0.5;
         public static final double kArmAllowedError = 50;
     }
-        //SmartDashboard.putNumber("kArmP", kArmP);
-        //SmartDashboard.putNumber(kArmP,"");
+       ;
 } // ends class constants

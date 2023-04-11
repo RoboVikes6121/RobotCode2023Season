@@ -12,19 +12,19 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+//import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.StabilizerController;
+//import frc.robot.subsystems.StabilizerController;
 import frc.robot.subsystems.Swerve;
-import frc.robot.autos.Auton12;
-import frc.robot.autos.Auton13;
+//import frc.robot.autos.Auton12;
+//import frc.robot.autos.Auton13;
 import frc.robot.autos.Auton11;
-import frc.robot.autos.Auton21;
-import frc.robot.autos.Auton22;
+//import frc.robot.autos.Auton21;
+//import frc.robot.autos.Auton22;
 import frc.robot.commands.TeleopSwerve;
 //import frc.robot.subsystems.StabilizerController;
 
@@ -41,7 +41,7 @@ public class RobotContainer {
   private final Swerve m_Swerve = new Swerve();
   private final Intake m_Intake = new Intake();
   private final Arm m_Arm = new Arm();
-  private final StabilizerController m_StabilizerController = new StabilizerController();
+  //private final StabilizerController m_StabilizerController = new StabilizerController();
   //public final XboxController m_controller = new XboxController(1);
   public final Joystick m_operator = new Joystick(0);
   public final Joystick m_Joystick = new Joystick(1); 
@@ -54,19 +54,13 @@ public class RobotContainer {
   //private final JoystickButton zeroGyro = new JoystickButton(m_Joystick, Joystick.ButtonType.kTrigger.value);
   private final JoystickButton robotCentric = new JoystickButton(m_Joystick, Joystick.ButtonType.kTop.value);
 
-    // private final Joystick m_joystick = new Joystick(0);
-    // private final Joystick m_joystick2 = new Joystick(1);
+  
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Set up the default command for the drivetrain.
-    // The controls are for field-oriented driving:
-    // Left stick Y axis -> forward and backwards movement
-    // Left stick X axis -> left and right movement
-    // Right stick X axis -> rotation
-    // m_Swerve.setDefaultCommand(new TeleopSwerve(m_Swerve, m_controller, Constants.Swerve.isFieldRelative, Constants.Swerve.isOpenLoop));
+  
     m_Swerve.setDefaultCommand(
       new TeleopSwerve(
           m_Swerve, 
@@ -76,21 +70,7 @@ public class RobotContainer {
           () -> robotCentric.getAsBoolean()
       )
   );}
-   // while(m_Joystick.getRawButton(16)){
-    /*  m_Swerve.setDefaultCommand(new TeleopSwerve(
-      m_Swerve,
-      () -> -modifyAxis(m_StabilizerController.stabX() * .2),
-      () -> -modifyAxis(m_StabilizerController.stabY() * .2),
-      () -> -modifyAxis(m_controller.getRightX() * (.2 * Math.PI)),
-      () -> robotCentric.getAsBoolean()
-      )
-    );
-    }*/
-
- // SmartDashboard.putNumber("lx", m_controller.getLeftX() );
-    // Configure the button bindings
-    //configureButtonBindings();
-  //}
+   
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -99,13 +79,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // Back button zeros the gyroscope
-  //   new Button(m_controller::getBackButton)
-  //           // No requirements because we don't need to interrupt anything
-  //           .whenPressed(m_Swerve::reset);
-
-        /* Driver Buttons */
-       // zeroGyro.onTrue(new InstantCommand(() -> m_Swerve.zeroGyro()));
+    
     
   }
 

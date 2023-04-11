@@ -29,7 +29,7 @@ public class Swerve extends SubsystemBase {
 
     public Swerve() {
         gyro = new AHRS(Constants.Swerve.navXID);
-        // gyro.configFactoryDefault();
+        
         zeroGyro();
 
         mSwerveMods = new SwerveModule[] {
@@ -109,7 +109,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public void zeroGyro(){
-        // gyro.setYaw(0);
+        
         gyro.reset();
     }
 

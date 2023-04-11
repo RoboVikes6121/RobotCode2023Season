@@ -4,17 +4,17 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.sensors.CANCoder;
+//import com.ctre.phoenix.motorcontrol.ControlMode;
+//import com.ctre.phoenix.sensors.CANCoder;
 import com.kauailabs.navx.frc.AHRS;
 import com.playingwithfusion.TimeOfFlight;
-import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
+//import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.wpilibj.Joystick;
+//import edu.wpi.first.math.geometry.Pose2d;
+//import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,11 +23,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.modules.CTREConfigs;
 import frc.robot.subsystems.Arm;
-//import frc.robot.subsystems.DrivetrainSubsystem;
+
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.StabilizerController;
 import frc.robot.subsystems.Swerve;
-import pabeles.concurrency.ConcurrencyOps.Reset;
+//import pabeles.concurrency.ConcurrencyOps.Reset;
 import edu.wpi.first.wpilibj.SPI;
 
 /**
@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
   private static AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200);
   public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
-  private Swerve m_Swerve;
+ // private Swerve m_Swerve;
   public Swerve swerve = new Swerve();
   public Arm arm = new Arm();
   public Intake intake = new Intake();
@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
 
     camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
     camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-    // camera4 = CameraServer.startAutomaticCapture(3); 
+     
 
     try{
       arm.armInit();
@@ -114,17 +114,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("GyroPitch", m_navx.getPitch());
     SmartDashboard.putNumber("GyroRoll", m_navx.getRoll());
     
-    // SmartDashboard.putNumber("mvp", DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND);
-    // SmartDashboard.putNumber("speed",SdsModuleConfigurations.MK4I_L2.getDriveReduction());
-    // SmartDashboard.putNumber("mav", DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
     
-    //SmartDashboard.putNumber("joy", RobotContainer.m_controller.getLeftX());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    //CANCoder.Reset;
+    
   }
 
   @Override
@@ -154,14 +150,13 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    //swerve.resetOdometry(Constants.initialpose);
-    // swerve.resetModulesToAbsolute();
+    
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    // SmartDashboard.putNumber("arm encoder", Arm.getEncoderValue()); //Moved to robotPeriodic
+    
 
     //Good practice to avoid the posibility of setting a motor speed multiple times in a single iteration of code.
     
@@ -175,22 +170,19 @@ public class Robot extends TimedRobot {
       arm.armStop();
     }
     if(m_robotContainer.m_operator.getRawButton(8)){
-      // arm.armExtend();
+
       arm.armToPosition(53000); //When button is held move arm to 1000 encoder ticks
     }else if(m_robotContainer.m_operator.getRawButton(10)){
-      // arm.armRetract();
       // in all the way
       arm.armToPosition(250); //When button is held move arm to 75 encoder ticks
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
     }else if(m_robotContainer.m_operator.getRawButton(7)){
-      // arm.armStop();
+      
       arm.armToPosition(88000);  //When button is held move arm to 2000 encoder ticks
     }else if(m_robotContainer.m_operator.getRawButton(9)){
       arm.armToPosition(26000);
     }
-    //else{
-      //arm.writeArm(m_robotContainer.m_operator.getRawAxis(1));
-    //}
+    
     if(m_robotContainer.m_operator.getRawButton(3)){
       intake.Pickup();
     }else if(m_robotContainer.m_operator.getRawButton(4)){
@@ -223,27 +215,4 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {}
 
 
-
-/*
-* to be deleted and made pretty
-*/
-// public void dAuton(){
-// // get distance from out gyro
-// // determine how far we want to travel
-// // compare our gyro distance reading and determine if we still need to move forward
-// // keep track of other coordinates, x, y, z
-// if (m_timer.get() < 0){
-//   driveforward(0);
-// }
-// else if(m_timer.get() > 0 & m_timer.get() < 1.5){
-//   driveforward(.2);
-// }
-// }
-
-// public static void driveforward(double power) {
-// }
-
-// public static int m_timer() {
-//   return 0;
-//  }
 }

@@ -10,14 +10,14 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
+//import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.playingwithfusion.TimeOfFlight;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+//import edu.wpi.first.wpilibj.Encoder;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 
 /** Add your docs here. */
@@ -59,7 +59,7 @@ public double getEncoderValue(){
 }
 public void armExtend(){
     arm.set(ControlMode.PercentOutput, -.3);
-   // SmartDashboard.putNumber("Encoder", arm.getActiveTrajectoryPositio );
+  
 }
 public void armStop(){
     arm.set(ControlMode.PercentOutput, 0);
