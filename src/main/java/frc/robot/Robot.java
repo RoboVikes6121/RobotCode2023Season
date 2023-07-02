@@ -14,6 +14,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -199,23 +200,22 @@ public class Robot extends TimedRobot {
       intake.intakestop();
     }
    if(m_robotContainer.m_Joystick.getRawButton(5)){
-    stabilizerController.stabY(); //balance method to a button 
-   }
+    //stabilizerController.stabY(); //balance method to a button 
+  TimeOfFlight(); 
+  }
+
     
   };
   public void TimeOfFlight(){
-      if (timeOfFlight.getRange() < 40) {
-        arm.armStop();
+      if (timeOfFlight.getRange() < Constants.pickUpDistance) {
+       swerve.setX();
+       System.out.println("stop!\n\n\n\n");
+
       }
     }
   
   //If the motor controller(TalonSRX/TalonFX) is not set to a new value/speed for a certain amount of time, it will enter a safety mode and disable itself.
   //This is a safety function.
-  public void setMotorSpeed(double speed){
-    if (speed > 0){
-      if (Constants.TimeOfFlight(14));
-    }
-  }
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.

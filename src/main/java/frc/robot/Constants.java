@@ -34,6 +34,7 @@ public final class Constants {
     public static final double OutTakeSpeed = -.7;
     public static final double PickupSpeed = .7;
     public static final double stickDeadband = .1;
+    public static final double pickUpDistance = 1630;
     public static  Pose2d initialpose;
     //public static double maxSpeedMultiplier = 1;
     //public static final kDriveTick2Feet = 

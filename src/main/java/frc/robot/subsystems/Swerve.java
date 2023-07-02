@@ -70,10 +70,10 @@ public class Swerve extends SubsystemBase {
     }    
     public void setX()
     {
-       mSwerveMods[0].setDesiredState(new  SwerveModuleState(0, Rotation2d.fromDegrees(45)), true);
-       mSwerveMods[1].setDesiredState(new  SwerveModuleState(0, Rotation2d.fromDegrees(315)), true);
-       mSwerveMods[2].setDesiredState(new  SwerveModuleState(0, Rotation2d.fromDegrees(225)), true);
-       mSwerveMods[3].setDesiredState(new  SwerveModuleState(0, Rotation2d.fromDegrees(135)), true);
+       mSwerveMods[0].setDesiredState(new  SwerveModuleState(0, Rotation2d.fromDegrees(0)), true);
+       mSwerveMods[1].setDesiredState(new  SwerveModuleState(0, Rotation2d.fromDegrees(0)), true);
+       mSwerveMods[2].setDesiredState(new  SwerveModuleState(0, Rotation2d.fromDegrees(0)), true);
+       mSwerveMods[3].setDesiredState(new  SwerveModuleState(0, Rotation2d.fromDegrees(0)), true);
     }
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
