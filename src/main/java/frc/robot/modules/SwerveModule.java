@@ -22,6 +22,7 @@ public class SwerveModule {
     public int moduleNumber;
     private Rotation2d angleOffset;
     private Rotation2d lastAngle;
+    private double angleDiagonstic = 0;
 
     private TalonFX mAngleMotor;
     private TalonFX mDriveMotor;
@@ -71,6 +72,7 @@ public class SwerveModule {
         
         mAngleMotor.set(ControlMode.Position, Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio));
         lastAngle = angle;
+        angleDiagonstic = angle.getDegrees();
     }
 
     private Rotation2d getAngle(){
@@ -79,6 +81,10 @@ public class SwerveModule {
 
     public Rotation2d getCanCoder(){
         return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition());
+    }
+
+    public double getAngleDiagnostic(){
+        return angleDiagonstic;
     }
 
     public void resetToAbsolute(){

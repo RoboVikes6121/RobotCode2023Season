@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
   private static AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200);
   public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
-  private Swerve m_Swerve;
+  // private Swerve m_Swerve;
   public Swerve swerve = new Swerve();
   public Arm arm = new Arm();
   public Intake intake = new Intake();
@@ -166,9 +166,9 @@ public class Robot extends TimedRobot {
 
     //Good practice to avoid the posibility of setting a motor speed multiple times in a single iteration of code.
     
-    if(m_robotContainer.m_Joystick.getRawButton(10)){
-      swerve.setX();
-    }
+    // if(m_robotContainer.m_Joystick.getRawButton(10)){
+    //   swerve.setX();
+    // }
     if(m_robotContainer.m_operator.getRawButton(11)){
       arm.armRetract();
     }
