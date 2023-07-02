@@ -12,6 +12,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
+import com.ctre.phoenix.sensors.PigeonIMU;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -25,12 +26,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
-    public AHRS gyro;
+    // public AHRS gyro;
+    public PigeonIMU gyro;
 
     public Swerve() {
-        gyro = new AHRS(Constants.Swerve.navXID);
+        // gyro = new AHRS(Constants.Swerve.navXID);
         // gyro.configFactoryDefault();
-        zeroGyro();
+       // zeroGyro();
+       gyro = new PigeonIMU(5);
+       gyro.configFactoryDefault();
+       gyro.setYaw(0);
+
 
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
@@ -109,13 +115,15 @@ public class Swerve extends SubsystemBase {
     }
 
     public void zeroGyro(){
-        // gyro.setYaw(0);
-        gyro.reset();
+        gyro.setYaw(0);
+        // gyro.reset();
         
     }
 
     public Rotation2d getYaw() {
-        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getAngle()) : Rotation2d.fromDegrees(gyro.getAngle());
+        // return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getAngle()) : Rotation2d.fromDegrees(gyro.getAngle());
+        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
+        // return gyro.getRotation2d();
     }
 
     public void resetModulesToAbsolute(){
@@ -133,7 +141,7 @@ public class Swerve extends SubsystemBase {
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);  
             SmartDashboard.putNumber("Mod" + mod.moduleNumber + "Requested Angle", mod.getAngleDiagnostic());  
-            SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle());
+            SmartDashboard.putNumber("Gyro Value: ", gyro.getYaw());
         }
     }
 }

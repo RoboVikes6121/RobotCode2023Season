@@ -83,6 +83,7 @@ public class Robot extends TimedRobot {
     try{
       arm.armInit();
       
+      
     }catch(Exception e){
       System.out.println(e);
     }
