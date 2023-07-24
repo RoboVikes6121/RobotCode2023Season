@@ -33,7 +33,7 @@ public class Swerve extends SubsystemBase {
         // gyro = new AHRS(Constants.Swerve.navXID);
         // gyro.configFactoryDefault();
        // zeroGyro();
-       gyro = new PigeonIMU(5);
+       gyro = new PigeonIMU(22);
        gyro.configFactoryDefault();
        gyro.setYaw(0);
 
