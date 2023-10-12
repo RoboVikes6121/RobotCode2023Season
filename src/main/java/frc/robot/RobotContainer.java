@@ -72,8 +72,9 @@ public class RobotContainer {
           m_Swerve, 
           () -> m_Joystick.getRawAxis(translationAxis), 
           () -> m_Joystick.getRawAxis(strafeAxis), 
-          () -> -m_Joystick.getRawAxis(rotationAxis), 
-          () -> m_Joystick.getRawButton(0)
+          () -> m_Joystick.getRawAxis(rotationAxis), 
+          () -> m_Joystick.getRawButton(0),
+          () -> m_Joystick.getRawButton(7)
       )
   );}
    // while(m_Joystick.getRawButton(16)){

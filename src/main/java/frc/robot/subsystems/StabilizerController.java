@@ -13,11 +13,11 @@ public class StabilizerController {
     private boolean autoBalanceYMode;
     private double kOffBalanceThresholdDegrees = 10;
     private double kOnBalanceThresholdDegrees = 5;
+    private Swerve m_Swerve = new Swerve();
 
-    private final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200);
 
     public double stabX(){
-        double pitchAngleDegrees  = m_navx.getPitch();
+        double pitchAngleDegrees  = m_Swerve.getPitch();
 
         if ( !autoBalanceXMode && (Math.abs(pitchAngleDegrees) >= Math.abs(kOffBalanceThresholdDegrees))) {
             autoBalanceXMode = true;
@@ -34,7 +34,7 @@ public class StabilizerController {
         }
     }
     public double stabY(){
-        double rollAngleDegrees  = m_navx.getRoll();
+        double rollAngleDegrees  = m_Swerve.getRoll();
 
         if ( !autoBalanceYMode && (Math.abs(rollAngleDegrees) >= Math.abs(kOffBalanceThresholdDegrees))) {
             autoBalanceYMode = true;
