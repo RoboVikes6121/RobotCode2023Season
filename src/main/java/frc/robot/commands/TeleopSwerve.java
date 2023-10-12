@@ -20,8 +20,8 @@ public class TeleopSwerve extends CommandBase {
     private DoubleSupplier strafeSup;
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
-
-    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
+    private BooleanSupplier zerogyro;
+    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, BooleanSupplier zerogyro) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
@@ -29,6 +29,7 @@ public class TeleopSwerve extends CommandBase {
         this.strafeSup = strafeSup;
         this.rotationSup = rotationSup;
         this.robotCentricSup = robotCentricSup;
+        this.zerogyro=zerogyro;
     }
 
     @Override
@@ -37,6 +38,11 @@ public class TeleopSwerve extends CommandBase {
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
+
+        if(zerogyro.getAsBoolean()){
+            s_Swerve.zeroGyro();
+        }
+    
 
         /* Drive */
         s_Swerve.drive(

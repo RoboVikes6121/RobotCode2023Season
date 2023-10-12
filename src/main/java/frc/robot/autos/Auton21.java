@@ -7,18 +7,13 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
-import com.pathplanner.lib.auto.PIDConstants;
-import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import frc.robot.commands.Balance;
 import frc.robot.commands.Feedin;
-import frc.robot.commands.FollowPath;
 import frc.robot.commands.armIn;
 import frc.robot.commands.armout;
 import frc.robot.commands.feedout;
@@ -48,6 +43,8 @@ public class Auton21 extends AutoBase {
        System.out.println("here is your sample trajectory");
         PathPlannerState examState = (PathPlannerState) p0.sample(2.39);
         System.out.println(examState.velocityMetersPerSecond);
+
+        Balance balance = new Balance();
         
 
 

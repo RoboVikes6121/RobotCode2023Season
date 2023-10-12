@@ -76,7 +76,7 @@ public final class Constants {
     // public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(58.3); // FIXME Measure and set back right steer offset
     //public static final double TimeOfFlight = 14;
     public static final class Swerve{
-        public static final edu.wpi.first.wpilibj.SPI.Port navXID =
+        public static final edu.wpi.first.wpilibj.SPI.Port PIGE_PORT =
             edu.wpi.first.wpilibj.SPI.Port.kMXP;
         public static final boolean invertGyro = true; // Always ensure Gyro is CCW+ CW-
         //FIXME prox sensor is not set to a known value yet
