@@ -26,7 +26,7 @@ import frc.robot.modules.CTREConfigs;
 import frc.robot.subsystems.Arm;
 //import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.StabilizerController;
+//import frc.robot.subsystems.StabilizerController;
 import frc.robot.subsystems.Swerve;
 import pabeles.concurrency.ConcurrencyOps.Reset;
 import edu.wpi.first.wpilibj.SPI;
@@ -48,11 +48,11 @@ public class Robot extends TimedRobot {
   //private static AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200);
   public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
-  // private Swerve m_Swerve;
+  private Swerve m_Swerve;
   public Swerve swerve = new Swerve();
   public Arm arm = new Arm();
   public Intake intake = new Intake();
-  public StabilizerController stabilizerController = new StabilizerController();
+  //public StabilizerController stabilizerController = new StabilizerController();
   public TimeOfFlight timeOfFlight = new TimeOfFlight(14);
 
   /**

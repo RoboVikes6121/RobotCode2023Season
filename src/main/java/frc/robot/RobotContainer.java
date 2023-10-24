@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.StabilizerController;
+//import frc.robot.subsystems.StabilizerController;
 import frc.robot.subsystems.Swerve;
 import frc.robot.autos.Auton12;
 import frc.robot.autos.Auton13;
@@ -41,7 +41,7 @@ public class RobotContainer {
   private final Swerve m_Swerve = new Swerve();
   private final Intake m_Intake = new Intake();
   private final Arm m_Arm = new Arm();
-  private final StabilizerController m_StabilizerController = new StabilizerController();
+  //private final StabilizerController m_StabilizerController = new StabilizerController();
   //public final XboxController m_controller = new XboxController(1);
   public final Joystick m_operator = new Joystick(0);
   public final Joystick m_Joystick = new Joystick(1); 
@@ -72,7 +72,7 @@ public class RobotContainer {
           m_Swerve, 
           () -> m_Joystick.getRawAxis(translationAxis), 
           () -> m_Joystick.getRawAxis(strafeAxis), 
-          () -> -m_Joystick.getRawAxis(rotationAxis), 
+          () -> m_Joystick.getRawAxis(rotationAxis), 
           () -> m_Joystick.getRawButton(0),
           () -> m_Joystick.getRawButton(7)
       )
