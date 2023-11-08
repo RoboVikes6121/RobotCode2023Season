@@ -43,19 +43,21 @@ public class RobotContainer {
   private final Arm m_Arm = new Arm();
   //private final StabilizerController m_StabilizerController = new StabilizerController();
   //public final XboxController m_controller = new XboxController(1);
-  public final Joystick m_operator = new Joystick(0);
-  public final Joystick m_Joystick = new Joystick(1); 
+  // public final Joystick m_operator = new Joystick(0);
+  // public final Joystick m_driver = new Joystick(1); 
+  public final XboxController m_operator = new XboxController(1);
+  public final XboxController m_driver = new XboxController(0);
   /* Drive Controls */
-  private final int translationAxis = Joystick.AxisType.kY.value;
-  private final int strafeAxis = Joystick.AxisType.kX.value;
-  private final int rotationAxis = Joystick.AxisType.kZ.value;
+  // private final int translationAxis = Joystick.AxisType.kY.value;
+  // private final int strafeAxis = Joystick.AxisType.kX.value;
+  // private final int rotationAxis = Joystick.AxisType.kZ.value;
 
   /* Driver Buttons */
-  //private final JoystickButton zeroGyro = new JoystickButton(m_Joystick, Joystick.ButtonType.kTrigger.value);
-  private final JoystickButton robotCentric = new JoystickButton(m_Joystick, Joystick.ButtonType.kTop.value);
+  //private final JoystickButton zeroGyro = new JoystickButton(m_driver, Joystick.ButtonType.kTrigger.value);
+  // private final JoystickButton robotCentric = new JoystickButton(m_driver, Joystick.ButtonType.kTop.value);
 
-    // private final Joystick m_joystick = new Joystick(0);
-    // private final Joystick m_joystick2 = new Joystick(1);
+    // private final Joystick m_driver = new Joystick(0);
+    // private final Joystick m_driver2 = new Joystick(1);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -68,15 +70,21 @@ public class RobotContainer {
     // Right stick X axis -> rotation
     // m_Swerve.setDefaultCommand(new TeleopSwerve(m_Swerve, m_controller, Constants.Swerve.isFieldRelative, Constants.Swerve.isOpenLoop));
     m_Swerve.setDefaultCommand(
+      // new TeleopSwerve(
+      //     m_Swerve, 
+      //     () -> m_driver.getRawAxis(translationAxis), 
+      //     () -> m_driver.getRawAxis(strafeAxis), 
+      //     () -> -m_driver.getRawAxis(rotationAxis), 
+      //     () -> m_driver.getRawButton(0)
+      // )
       new TeleopSwerve(
-          m_Swerve, 
-          () -> m_Joystick.getRawAxis(translationAxis), 
-          () -> m_Joystick.getRawAxis(strafeAxis), 
-          () -> -m_Joystick.getRawAxis(rotationAxis), 
-          () -> m_Joystick.getRawButton(0)
-      )
+          m_Swerve,
+          () -> m_driver.getLeftX(), 
+          () -> m_driver.getLeftY(),
+          () -> m_driver.getRightX(),
+          () -> m_driver.getAButton())
   );}
-   // while(m_Joystick.getRawButton(16)){
+   // while(m_driver.getRawButton(16)){
     /*  m_Swerve.setDefaultCommand(new TeleopSwerve(
       m_Swerve,
       () -> -modifyAxis(m_StabilizerController.stabX() * .2),

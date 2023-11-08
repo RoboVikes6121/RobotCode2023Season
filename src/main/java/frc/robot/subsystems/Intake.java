@@ -23,4 +23,8 @@ public void intakestop(){
     Motor.set(ControlMode.PercentOutput, 0);
 }
 
+public void intakeSpeed(double speed){
+    Motor.set(ControlMode.PercentOutput, speed);
+}
+
 }

@@ -170,37 +170,39 @@ public class Robot extends TimedRobot {
     // if(m_robotContainer.m_Joystick.getRawButton(10)){
     //   swerve.setX();
     // }
-    if(m_robotContainer.m_operator.getRawButton(11)){
+    if(m_robotContainer.m_operator.getAButton()){
       arm.armRetract();
     }
-    if(m_robotContainer.m_operator.getRawButton(12)){
+    if(m_robotContainer.m_operator.getBButton()){
       arm.armStop();
     }
-    if(m_robotContainer.m_operator.getRawButton(8)){
+    if(m_robotContainer.m_operator.getYButton()){
       // arm.armExtend();
       arm.armToPosition(53000); //When button is held move arm to 1000 encoder ticks
-    }else if(m_robotContainer.m_operator.getRawButton(10)){
+    }else if(m_robotContainer.m_operator.getLeftBumper()){
       // arm.armRetract();
       // in all the way
       arm.armToPosition(250); //When button is held move arm to 75 encoder ticks
       //Typically want to avoid move the arm all the way back in, so that it doesn't hit any hard stops(metal)
-    }else if(m_robotContainer.m_operator.getRawButton(7)){
+    }else if(m_robotContainer.m_operator.getRightBumper()){
       // arm.armStop();
       arm.armToPosition(88000);  //When button is held move arm to 2000 encoder ticks
-    }else if(m_robotContainer.m_operator.getRawButton(9)){
+    }else if(m_robotContainer.m_operator.getXButton()){
       arm.armToPosition(26000);
     }
     //else{
       //arm.writeArm(m_robotContainer.m_operator.getRawAxis(1));
     //}
-    if(m_robotContainer.m_operator.getRawButton(3)){
-      intake.Pickup();
-    }else if(m_robotContainer.m_operator.getRawButton(4)){
-      intake.Drop();
-    }else{  //Need to have a default, if no buttons are held, then the motor stops.
-      intake.intakestop();
-    }
-   if(m_robotContainer.m_Joystick.getRawButton(5)){
+    // if(m_robotContainer.m_operator.getRawButton(3)){
+    //   intake.Pickup();
+    // }else if(m_robotContainer.m_operator.getRawButton(4)){
+    //   intake.Drop();
+    // }else{  //Need to have a default, if no buttons are held, then the motor stops.
+    //   intake.intakestop();
+    // }
+    //Control speed of intake with Left Y axis of the XBox Controller
+    intake.intakeSpeed(m_robotContainer.m_operator.getLeftY());
+   if(m_robotContainer.m_driver.getStartButton()){
     //stabilizerController.stabY(); //balance method to a button 
   TimeOfFlight(); 
   }
