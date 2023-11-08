@@ -4,15 +4,11 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.StabilizerController;
-import frc.robot.subsystems.Swerve;
 
 public class Balance extends CommandBase {
-  private StabilizerController m_stabilizer;
-  private Swerve m_swerve;
   /** Creates a new Balance. */
   public Balance() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,11 +22,6 @@ public class Balance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_stabilizer.stabX() != 0){
-      m_swerve.drive(new Translation2d(0, 0.05), 0, false, false);
-    }else{
-        m_swerve.drive(new Translation2d(0, 0), 0, false, false);
-      }
   
  
   }

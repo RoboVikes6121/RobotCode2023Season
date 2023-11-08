@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
   Timer m_timer = new Timer();
   private Command m_autonomousCommand;
   // Joystick operator = new Joystick(1);
-  //private static AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200);
+  private static AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200);
   public static CTREConfigs ctreConfigs = new CTREConfigs();
   private RobotContainer m_robotContainer;
   private Swerve m_Swerve;
@@ -112,9 +112,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("kArmP", Constants.ArmConstants.kArmP);
     SmartDashboard.putNumber("kArmI", Constants.ArmConstants.kArmI);
     SmartDashboard.putNumber("kArmD", Constants.ArmConstants.kArmD);
-    //SmartDashboard.putNumber("GyroYAW", m_navx.getYaw());
-    //SmartDashboard.putNumber("GyroPitch", m_navx.getPitch());
-    //SmartDashboard.putNumber("GyroRoll", m_navx.getRoll());
+    SmartDashboard.putNumber("GyroYAW", m_navx.getYaw());
+    SmartDashboard.putNumber("GyroPitch", m_navx.getPitch());
+    SmartDashboard.putNumber("GyroRoll", m_navx.getRoll());
     
     // SmartDashboard.putNumber("mvp", DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND);
     // SmartDashboard.putNumber("speed",SdsModuleConfigurations.MK4I_L2.getDriveReduction());

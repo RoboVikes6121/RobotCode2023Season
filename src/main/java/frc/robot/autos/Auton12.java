@@ -27,7 +27,6 @@ import frc.robot.commands.WheelsIn;
 import frc.robot.commands.armIn;
 import frc.robot.commands.armout;
 import frc.robot.commands.feedout;
-import frc.robot.commands.Balance;
 import frc.robot.modules.AutoBase;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
@@ -60,7 +59,7 @@ public class Auton12 extends AutoBase {
         PathPlannerState examState = (PathPlannerState) p0.sample(2.39);
         System.out.println(examState.velocityMetersPerSecond);
         
-        Balance balance = new Balance();
+
 
        addCommands(new SequentialCommandGroup(out,feedout,in));
 
